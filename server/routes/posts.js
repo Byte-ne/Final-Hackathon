@@ -116,4 +116,18 @@ router.post('/:id/study-request', async (req, res) => {
     } catch (err) { console.error(err); res.status(500).json({ message: 'Server error' }) }
 })
 
+// Delete all posts (admin function)
+router.delete('/all', async (req, res) => {
+    try {
+        const result = await Post.deleteMany({})
+        res.json({
+            message: 'All posts deleted successfully',
+            deletedCount: result.deletedCount
+        })
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Server error' })
+    }
+})
+
 module.exports = router

@@ -1,0 +1,22 @@
+{
+  "name": "final-hackathon",
+  "version": "1.0.0",
+  "description": "This workspace contains a Vite + React client (`/client`) and an Express server (`/server`).",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix client\" \"npm run dev --prefix server\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Byte-ne/Final-Hackathon.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Byte-ne/Final-Hackathon/issues"
+  },
+  "homepage": "https://github.com/Byte-ne/Final-Hackathon#readme"
+}

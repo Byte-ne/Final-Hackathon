@@ -345,116 +345,129 @@ export default function QuestionBank() {
     return (
         <div style={{
             minHeight: '100vh',
-            background: 'var(--bg-primary)',
-            padding: '24px'
+            background: 'var(--bg-secondary)',
+            padding: 'var(--space-8) var(--space-6)'
         }}>
-            {/* Header Section */}
+            {/* Header */}
             <div style={{
                 textAlign: 'center',
-                marginBottom: '48px'
+                marginBottom: 'var(--space-12)',
+                maxWidth: '800px',
+                margin: '0 auto var(--space-12)'
             }}>
                 <div style={{
                     display: 'inline-flex',
                     alignItems: 'center',
-                    gap: '16px',
-                    padding: '24px',
-                    background: 'linear-gradient(135deg, rgba(66, 133, 244, 0.1), rgba(52, 168, 83, 0.1))',
-                    borderRadius: '20px',
-                    marginBottom: '24px'
+                    gap: 'var(--space-3)',
+                    padding: 'var(--space-6)',
+                    background: 'var(--white)',
+                    borderRadius: 'var(--radius-2xl)',
+                    marginBottom: 'var(--space-6)',
+                    border: '2px solid var(--border-light)',
+                    boxShadow: 'var(--shadow-md)'
                 }}>
-                    <BookOpen size={48} style={{ color: 'var(--primary-blue)' }} />
-                    <div>
+                    <div style={{ padding: 'var(--space-3)', background: 'var(--primary-light)', borderRadius: 'var(--radius-lg)' }}>
+                        <BookOpen size={40} style={{ color: 'var(--primary)' }} />
+                    </div>
+                    <div style={{ textAlign: 'left' }}>
                         <h1 style={{
-                            fontSize: '36px',
-                            fontWeight: '700',
+                            fontSize: '42px',
+                            fontWeight: '800',
                             color: 'var(--text-primary)',
                             margin: 0,
-                            background: 'linear-gradient(135deg, #4285F4, #34A853)',
-                            WebkitBackgroundClip: 'text',
-                            WebkitTextFillColor: 'transparent',
-                            backgroundClip: 'text'
+                            letterSpacing: '-0.02em'
                         }}>
                             Question Bank
                         </h1>
                         <p style={{
                             color: 'var(--text-secondary)',
-                            margin: '8px 0 0 0',
-                            fontSize: '16px'
+                            margin: 'var(--space-2) 0 0 0',
+                            fontSize: '16px',
+                            lineHeight: '1.5'
                         }}>
-                            Comprehensive collection of previous year papers
+                            100+ past papers from all major exams
                         </p>
                     </div>
                 </div>
             </div>
 
-            {/* Exam Selector Tabs */}
+            {/* Exam Tabs */}
             <div style={{
                 display: 'flex',
                 justifyContent: 'center',
-                gap: '8px',
-                marginBottom: '32px',
-                flexWrap: 'wrap'
+                gap: 'var(--space-3)',
+                marginBottom: 'var(--space-10)',
+                flexWrap: 'wrap',
+                maxWidth: '1000px',
+                margin: '0 auto var(--space-10)'
             }}>
                 {Object.keys(examData).map(exam => (
                     <button
                         key={exam}
                         onClick={() => setActiveExam(exam)}
                         style={{
-                            padding: '12px 24px',
+                            padding: 'var(--space-4) var(--space-6)',
                             borderRadius: 'var(--radius-lg)',
-                            background: activeExam === exam ? examData[exam].color : 'var(--white)',
-                            color: activeExam === exam ? 'white' : 'var(--text-primary)',
-                            border: activeExam === exam ? 'none' : '2px solid var(--border-light)',
+                            background: activeExam === exam ? 'var(--primary)' : 'var(--white)',
+                            color: activeExam === exam ? 'var(--white)' : 'var(--text-primary)',
+                            border: `2px solid ${activeExam === exam ? 'var(--primary)' : 'var(--border-light)'}`,
                             cursor: 'pointer',
-                            fontWeight: '600',
-                            fontSize: '14px',
-                            transition: 'all var(--transition-fast)',
-                            boxShadow: activeExam === exam ? '0 4px 16px rgba(0, 0, 0, 0.15)' : 'none',
+                            fontWeight: '700',
+                            fontSize: '15px',
+                            fontFamily: 'inherit',
+                            transition: 'all var(--transition-base)',
+                            boxShadow: activeExam === exam ? 'var(--shadow-md)' : 'var(--shadow-sm)',
                             display: 'flex',
                             alignItems: 'center',
-                            gap: '8px'
+                            gap: 'var(--space-2)'
                         }}
                     >
-                        <span style={{ fontSize: '18px' }}>{examData[exam].icon}</span>
+                        <span style={{ fontSize: '20px' }}>{examData[exam].icon}</span>
                         {exam.toUpperCase()}
                     </button>
                 ))}
             </div>
 
-            {/* Exam Header */}
+            {/* Exam Info */}
             <div style={{
                 background: 'var(--white)',
-                borderRadius: 'var(--radius-xl)',
-                padding: '32px',
-                marginBottom: '32px',
+                borderRadius: 'var(--radius-2xl)',
+                padding: 'var(--space-8)',
+                marginBottom: 'var(--space-8)',
+                border: '2px solid var(--border-light)',
                 boxShadow: 'var(--shadow-md)',
-                textAlign: 'center'
+                textAlign: 'center',
+                maxWidth: '900px',
+                margin: '0 auto var(--space-8)'
             }}>
                 <div style={{
                     display: 'inline-flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    width: '80px',
-                    height: '80px',
-                    background: `linear-gradient(135deg, ${examData[activeExam].color}20, ${examData[activeExam].color}10)`,
+                    width: '100px',
+                    height: '100px',
+                    background: 'var(--primary-light)',
                     borderRadius: '50%',
-                    marginBottom: '16px'
+                    marginBottom: 'var(--space-5)',
+                    border: '3px solid var(--primary)'
                 }}>
-                    <span style={{ fontSize: '36px' }}>{examData[activeExam].icon}</span>
+                    <span style={{ fontSize: '48px' }}>{examData[activeExam].icon}</span>
                 </div>
                 <h2 style={{
-                    fontSize: '28px',
-                    fontWeight: '700',
+                    fontSize: '32px',
+                    fontWeight: '800',
                     color: 'var(--text-primary)',
-                    marginBottom: '8px'
+                    marginBottom: 'var(--space-3)',
+                    letterSpacing: '-0.02em'
                 }}>
                     {examData[activeExam].title}
                 </h2>
                 <p style={{
                     color: 'var(--text-secondary)',
-                    fontSize: '16px',
-                    maxWidth: '600px',
-                    margin: '0 auto'
+                    fontSize: '17px',
+                    maxWidth: '700px',
+                    margin: '0 auto',
+                    lineHeight: '1.7'
                 }}>
                     {examData[activeExam].description}
                 </p>
@@ -463,8 +476,10 @@ export default function QuestionBank() {
             {/* Papers Grid */}
             <div style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-                gap: '24px'
+                gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
+                gap: 'var(--space-6)',
+                maxWidth: '1400px',
+                margin: '0 auto'
             }}>
                 {examData[activeExam].papers.map((paper, index) => (
                     <div
@@ -472,59 +487,61 @@ export default function QuestionBank() {
                         style={{
                             background: 'var(--white)',
                             borderRadius: 'var(--radius-xl)',
-                            padding: '24px',
-                            boxShadow: 'var(--shadow-md)',
-                            border: '1px solid var(--border-light)',
-                            transition: 'all var(--transition-fast)'
+                            padding: 'var(--space-6)',
+                            border: '2px solid var(--border-light)',
+                            boxShadow: 'var(--shadow-sm)',
+                            transition: 'all var(--transition-base)'
                         }}
                     >
-                        {/* Year Header */}
+                        {/* Year */}
                         <div style={{
                             display: 'flex',
                             alignItems: 'center',
-                            gap: '12px',
-                            marginBottom: '20px',
-                            paddingBottom: '16px',
-                            borderBottom: '2px solid var(--off-white)'
+                            gap: 'var(--space-3)',
+                            marginBottom: 'var(--space-5)',
+                            paddingBottom: 'var(--space-4)',
+                            borderBottom: '2px solid var(--border-light)'
                         }}>
                             <div style={{
-                                width: '48px',
-                                height: '48px',
-                                background: examData[activeExam].color,
+                                width: '60px',
+                                height: '60px',
+                                background: 'var(--primary)',
                                 borderRadius: 'var(--radius-lg)',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                color: 'white',
-                                fontSize: '20px',
-                                fontWeight: '700'
+                                color: 'var(--white)',
+                                fontSize: '22px',
+                                fontWeight: '800'
                             }}>
                                 {paper.year.slice(-2)}
                             </div>
                             <div>
                                 <h3 style={{
-                                    fontSize: '20px',
-                                    fontWeight: '700',
+                                    fontSize: '24px',
+                                    fontWeight: '800',
                                     color: 'var(--text-primary)',
-                                    margin: 0
+                                    margin: 0,
+                                    letterSpacing: '-0.01em'
                                 }}>
                                     {paper.year}
                                 </h3>
                                 <p style={{
                                     color: 'var(--text-secondary)',
-                                    margin: '4px 0 0 0',
-                                    fontSize: '14px'
+                                    margin: 'var(--space-1) 0 0 0',
+                                    fontSize: '14px',
+                                    fontWeight: '500'
                                 }}>
-                                    Question Papers & Solutions
+                                    Papers & Solutions
                                 </p>
                             </div>
                         </div>
 
-                        {/* Links */}
+                        {/* Papers */}
                         <div style={{
                             display: 'flex',
                             flexDirection: 'column',
-                            gap: '12px'
+                            gap: 'var(--space-3)'
                         }}>
                             {paper.links.map((link, linkIndex) => (
                                 <button
@@ -534,39 +551,41 @@ export default function QuestionBank() {
                                         display: 'flex',
                                         alignItems: 'center',
                                         justifyContent: 'space-between',
-                                        padding: '16px',
-                                        background: 'var(--off-white)',
-                                        border: '1px solid var(--border-light)',
-                                        borderRadius: 'var(--radius-md)',
+                                        padding: 'var(--space-4)',
+                                        background: 'var(--bg-secondary)',
+                                        border: '2px solid var(--border-light)',
+                                        borderRadius: 'var(--radius-lg)',
                                         cursor: 'pointer',
-                                        transition: 'all var(--transition-fast)',
+                                        transition: 'all var(--transition-base)',
                                         textAlign: 'left',
-                                        width: '100%'
+                                        width: '100%',
+                                        fontFamily: 'inherit'
                                     }}
                                 >
                                     <div style={{
                                         display: 'flex',
                                         alignItems: 'center',
-                                        gap: '12px'
+                                        gap: 'var(--space-3)'
                                     }}>
-                                        <FileText size={20} style={{ color: examData[activeExam].color }} />
+                                        <FileText size={22} style={{ color: 'var(--primary)' }} />
                                         <div>
                                             <div style={{
-                                                fontSize: '14px',
-                                                fontWeight: '600',
+                                                fontSize: '15px',
+                                                fontWeight: '700',
                                                 color: 'var(--text-primary)'
                                             }}>
                                                 {link.name}
                                             </div>
                                             <div style={{
-                                                fontSize: '12px',
-                                                color: 'var(--text-secondary)'
+                                                fontSize: '13px',
+                                                color: 'var(--text-secondary)',
+                                                fontWeight: '500'
                                             }}>
                                                 PDF Document
                                             </div>
                                         </div>
                                     </div>
-                                    <Download size={16} style={{ color: 'var(--text-secondary)' }} />
+                                    <Download size={20} style={{ color: 'var(--text-tertiary)' }} />
                                 </button>
                             ))}
                         </div>

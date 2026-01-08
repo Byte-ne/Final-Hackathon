@@ -138,44 +138,46 @@ export default function Profile() {
     if (!user) return null
 
     return (
-        <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '32px 24px' }}>
-            {/* Profile Header Card */}
+        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: 'var(--space-8) var(--space-6)', minHeight: 'calc(100vh - 72px)' }}>
+            {/* Profile Header */}
             <div style={{
                 background: 'var(--white)',
-                borderRadius: 'var(--radius-xl)',
-                padding: '32px',
+                borderRadius: 'var(--radius-2xl)',
+                padding: 'var(--space-8)',
+                border: '2px solid var(--border-light)',
                 boxShadow: 'var(--shadow-md)',
-                marginBottom: '24px'
+                marginBottom: 'var(--space-6)'
             }}>
-                <div style={{ display: 'flex', gap: '32px', alignItems: 'flex-start', flexWrap: 'wrap' }}>
-                    {/* Avatar Section */}
+                <div style={{ display: 'flex', gap: 'var(--space-8)', alignItems: 'flex-start', flexWrap: 'wrap' }}>
+                    {/* Avatar */}
                     <div style={{ textAlign: 'center' }}>
                         {form.profilePic ? (
                             <img
                                 src={form.profilePic}
                                 alt="Profile"
                                 style={{
-                                    width: '120px',
-                                    height: '120px',
+                                    width: '140px',
+                                    height: '140px',
                                     borderRadius: '50%',
                                     objectFit: 'cover',
-                                    border: '4px solid var(--off-white)',
-                                    boxShadow: 'var(--shadow-md)'
+                                    border: '4px solid var(--primary-light)',
+                                    boxShadow: 'var(--shadow-lg)'
                                 }}
                             />
                         ) : (
                             <div style={{
-                                width: '120px',
-                                height: '120px',
+                                width: '140px',
+                                height: '140px',
                                 borderRadius: '50%',
-                                background: 'linear-gradient(135deg, var(--primary-blue), var(--primary-blue-dark))',
+                                background: 'linear-gradient(135deg, var(--primary), var(--secondary))',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 color: 'var(--white)',
-                                fontSize: '48px',
-                                fontWeight: '600',
-                                boxShadow: 'var(--shadow-md)'
+                                fontSize: '56px',
+                                fontWeight: '800',
+                                boxShadow: 'var(--shadow-lg)',
+                                border: '4px solid var(--white)'
                             }}>
                                 {user.name?.charAt(0).toUpperCase()}
                             </div>
@@ -184,32 +186,34 @@ export default function Profile() {
                             <label style={{
                                 display: 'inline-flex',
                                 alignItems: 'center',
-                                gap: '6px',
-                                marginTop: '12px',
-                                padding: '6px 12px',
-                                background: 'var(--off-white)',
-                                color: 'var(--text-secondary)',
-                                borderRadius: 'var(--radius-md)',
+                                gap: 'var(--space-2)',
+                                marginTop: 'var(--space-3)',
+                                padding: 'var(--space-2) var(--space-4)',
+                                background: 'var(--primary-light)',
+                                color: 'var(--primary)',
+                                borderRadius: 'var(--radius-lg)',
+                                border: '2px solid var(--primary)',
                                 cursor: 'pointer',
-                                fontSize: '13px',
-                                fontWeight: '500',
-                                transition: 'all var(--transition-fast)'
+                                fontSize: '14px',
+                                fontWeight: '700',
+                                transition: 'all var(--transition-base)'
                             }}>
                                 <input type="file" accept="image/*" onChange={onFileChange} style={{ display: 'none' }} />
-                                <Camera size={14} />
+                                <Camera size={16} />
                                 Change Photo
                             </label>
                         )}
                     </div>
 
-                    {/* Profile Info */}
-                    <div style={{ flex: 1, minWidth: '300px' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
+                    {/* Info */}
+                    <div style={{ flex: 1, minWidth: '400px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'var(--space-4)' }}>
                             <h1 style={{
-                                fontSize: '28px',
-                                fontWeight: '600',
+                                fontSize: '36px',
+                                fontWeight: '800',
                                 color: 'var(--text-primary)',
-                                margin: 0
+                                margin: 0,
+                                letterSpacing: '-0.02em'
                             }}>
                                 {user.name}
                             </h1>
@@ -220,20 +224,21 @@ export default function Profile() {
                                     style={{
                                         display: 'flex',
                                         alignItems: 'center',
-                                        gap: '6px',
-                                        padding: '8px 16px',
-                                        background: 'var(--primary-blue)',
+                                        gap: 'var(--space-2)',
+                                        padding: 'var(--space-3) var(--space-5)',
+                                        background: 'var(--primary)',
                                         color: 'var(--white)',
                                         border: 'none',
-                                        borderRadius: 'var(--radius-md)',
-                                        fontSize: '14px',
-                                        fontWeight: '500',
+                                        borderRadius: 'var(--radius-lg)',
+                                        fontSize: '15px',
+                                        fontWeight: '700',
+                                        fontFamily: 'inherit',
                                         cursor: 'pointer',
-                                        transition: 'all var(--transition-fast)',
-                                        boxShadow: 'var(--shadow-sm)'
+                                        transition: 'all var(--transition-base)',
+                                        boxShadow: 'var(--shadow-md)'
                                     }}
                                 >
-                                    <Edit3 size={16} />
+                                    <Edit3 size={18} />
                                     Edit Profile
                                 </button>
                             )}
@@ -242,12 +247,13 @@ export default function Profile() {
                         <div style={{
                             display: 'flex',
                             alignItems: 'center',
-                            gap: '6px',
+                            gap: 'var(--space-2)',
                             color: 'var(--text-secondary)',
-                            fontSize: '14px',
-                            marginBottom: '12px'
+                            fontSize: '15px',
+                            marginBottom: 'var(--space-4)',
+                            fontWeight: '500'
                         }}>
-                            <Mail size={16} />
+                            <Mail size={18} />
                             {user.email}
                         </div>
 
@@ -277,58 +283,61 @@ export default function Profile() {
                         )}
 
                         {/* Stats */}
-                        <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+                        <div style={{ display: 'flex', gap: 'var(--space-4)', flexWrap: 'wrap' }}>
                             <div
                                 role="button"
                                 tabIndex={0}
                                 onClick={() => setShowBuddiesModal(true)}
                                 onKeyDown={e => { if (e.key === 'Enter') setShowBuddiesModal(true) }}
                                 style={{
-                                    padding: '12px 16px',
-                                    background: 'var(--off-white)',
-                                    borderRadius: 'var(--radius-md)',
+                                    padding: 'var(--space-4) var(--space-5)',
+                                    background: 'var(--primary-light)',
+                                    borderRadius: 'var(--radius-lg)',
+                                    border: '2px solid var(--primary)',
                                     textAlign: 'center',
                                     cursor: 'pointer',
-                                    transition: 'transform 160ms ease'
+                                    transition: 'all var(--transition-base)'
                                 }}
                             >
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px', justifyContent: 'center' }}>
-                                    <Users size={16} style={{ color: 'var(--primary-blue)' }} />
-                                    <span style={{ fontSize: '20px', fontWeight: '600', color: 'var(--text-primary)' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', marginBottom: 'var(--space-1)', justifyContent: 'center' }}>
+                                    <Users size={18} style={{ color: 'var(--primary)' }} />
+                                    <span style={{ fontSize: '28px', fontWeight: '800', color: 'var(--primary)' }}>
                                         {user.studyBuddies ? user.studyBuddies.length : 0}
                                     </span>
                                 </div>
-                                <div style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>Study Buddies</div>
+                                <div style={{ fontSize: '13px', fontWeight: '700', color: 'var(--primary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Study Buddies</div>
                             </div>
 
                             <div style={{
-                                padding: '12px 16px',
-                                background: 'var(--off-white)',
-                                borderRadius: 'var(--radius-md)',
+                                padding: 'var(--space-4) var(--space-5)',
+                                background: 'var(--success-light)',
+                                border: '2px solid var(--success)',
+                                borderRadius: 'var(--radius-lg)',
                                 textAlign: 'center'
                             }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
-                                    <FileText size={16} style={{ color: 'var(--accent-green)' }} />
-                                    <span style={{ fontSize: '20px', fontWeight: '600', color: 'var(--text-primary)' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', marginBottom: 'var(--space-1)' }}>
+                                    <FileText size={18} style={{ color: 'var(--success)' }} />
+                                    <span style={{ fontSize: '28px', fontWeight: '800', color: 'var(--success)' }}>
                                         {user.posts ? user.posts.length : 0}
                                     </span>
                                 </div>
-                                <div style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>Posts</div>
+                                <div style={{ fontSize: '13px', fontWeight: '700', color: 'var(--success)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Posts</div>
                             </div>
 
                             <div style={{
-                                padding: '12px 16px',
-                                background: 'var(--off-white)',
-                                borderRadius: 'var(--radius-md)',
+                                padding: 'var(--space-4) var(--space-5)',
+                                background: 'var(--accent-light)',
+                                border: '2px solid var(--accent)',
+                                borderRadius: 'var(--radius-lg)',
                                 textAlign: 'center'
                             }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
-                                    <Target size={16} style={{ color: 'var(--warning)' }} />
-                                    <span style={{ fontSize: '20px', fontWeight: '600', color: 'var(--text-primary)' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', marginBottom: 'var(--space-1)' }}>
+                                    <Target size={18} style={{ color: 'var(--accent)' }} />
+                                    <span style={{ fontSize: '28px', fontWeight: '800', color: 'var(--accent)' }}>
                                         {user.examTargets ? user.examTargets.length : 0}
                                     </span>
                                 </div>
-                                <div style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>Exam Targets</div>
+                                <div style={{ fontSize: '13px', fontWeight: '700', color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Targets</div>
                             </div>
                         </div>
                         {/* Always-visible quick-add/search for buddies */}

@@ -10,10 +10,10 @@ function Sidebar({ active, setActive }) {
     ]
 
     return (
-        <aside style={{ width: '260px', position: 'sticky', top: '80px', height: 'fit-content' }}>
-            <div style={{ background: 'var(--white)', padding: '12px', borderRadius: '12px' }}>
-                <h3 style={{ margin: '0 0 12px 0', color: 'var(--text-primary)', fontSize: '18px' }}>Explore</h3>
-                <nav style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+        <aside style={{ width: '280px', position: 'sticky', top: '88px', height: 'fit-content' }}>
+            <div style={{ background: 'var(--white)', padding: 'var(--space-5)', borderRadius: 'var(--radius-xl)', border: '2px solid var(--border-light)', boxShadow: 'var(--shadow-sm)' }}>
+                <h3 style={{ margin: '0 0 var(--space-4) 0', color: 'var(--text-primary)', fontSize: '18px', fontWeight: '700' }}>Explore</h3>
+                <nav style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
                     {tabs.map(t => {
                         const Icon = t.icon
                         const isActive = active === t.key
@@ -25,36 +25,40 @@ function Sidebar({ active, setActive }) {
                                 style={{
                                     display: 'flex',
                                     alignItems: 'center',
-                                    gap: '12px',
-                                    padding: '10px 12px',
-                                    color: isActive ? 'var(--primary-blue)' : 'var(--text-secondary)',
-                                    background: isActive ? 'rgba(138,108,255,0.08)' : 'transparent',
-                                    border: 'none',
-                                    borderRadius: '10px',
+                                    gap: 'var(--space-3)',
+                                    padding: 'var(--space-3) var(--space-4)',
+                                    color: isActive ? 'var(--primary)' : 'var(--text-secondary)',
+                                    background: isActive ? 'var(--primary-light)' : 'transparent',
+                                    border: `2px solid ${isActive ? 'var(--primary)' : 'transparent'}`,
+                                    borderRadius: 'var(--radius-md)',
                                     textAlign: 'left',
-                                    cursor: 'pointer'
+                                    cursor: 'pointer',
+                                    fontWeight: '600',
+                                    fontSize: '14px',
+                                    transition: 'all var(--transition-base)',
+                                    fontFamily: 'inherit'
                                 }}
                             >
-                                <Icon size={18} />
+                                <Icon size={20} />
                                 {t.label}
                             </button>
                         )
                     })}
                 </nav>
-                {/* Unique sidebar features */}
-                <div style={{ marginTop: 12, borderTop: '1px dashed var(--border-light)', paddingTop: 12 }}>
-                    <div style={{ fontSize: 13, color: 'var(--text-secondary)', marginBottom: 8 }}>Trending Tags</div>
-                    <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                {/* Trending Tags */}
+                <div style={{ marginTop: 'var(--space-5)', borderTop: '2px solid var(--border-light)', paddingTop: 'var(--space-4)' }}>
+                    <div style={{ fontSize: '13px', color: 'var(--text-secondary)', marginBottom: 'var(--space-3)', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Trending Tags</div>
+                    <div style={{ display: 'flex', gap: 'var(--space-2)', flexWrap: 'wrap' }}>
                         {['jee', 'neet', 'upsc', 'studygroup', 'resource'].map((t, i) => (
-                            <button key={i} type="button" onClick={() => setActive('trending')} style={{ padding: '6px 10px', background: 'linear-gradient(90deg, rgba(138,108,255,0.12), rgba(138,108,255,0.04))', border: 'none', borderRadius: 999, color: 'var(--primary-blue)', fontSize: 12, cursor: 'pointer', transition: 'transform 160ms' }}>
+                            <button key={i} type="button" onClick={() => setActive('trending')} className="chip" style={{ padding: 'var(--space-2) var(--space-3)', background: 'var(--primary-light)', border: '2px solid transparent', borderRadius: 'var(--radius-full)', color: 'var(--primary)', fontSize: '12px', fontWeight: '700', cursor: 'pointer', transition: 'all var(--transition-base)' }}>
                                 #{t}
                             </button>
                         ))}
                     </div>
 
-                    <div style={{ marginTop: 12, display: 'flex', gap: 8 }}>
-                        <button type="button" onClick={() => alert('Start a Study Room feature coming soon')} style={{ flex: 1, padding: '8px 10px', borderRadius: 8, background: 'var(--primary-blue)', color: '#fff', border: 'none', cursor: 'pointer' }}>Start Room</button>
-                        <button type="button" onClick={() => alert('AI Summary coming soon')} style={{ padding: '8px 10px', borderRadius: 8, background: 'var(--off-white)', border: '1px solid var(--border-light)', cursor: 'pointer' }}>AI</button>
+                    <div style={{ marginTop: 'var(--space-4)', display: 'flex', gap: 'var(--space-2)' }}>
+                        <button type="button" onClick={() => alert('Start a Study Room feature coming soon')} style={{ flex: 1, padding: 'var(--space-3)', borderRadius: 'var(--radius-md)', background: 'var(--primary)', color: 'var(--white)', border: 'none', cursor: 'pointer', fontWeight: '600', fontSize: '14px', fontFamily: 'inherit' }}>Start Room</button>
+                        <button type="button" onClick={() => alert('AI Summary coming soon')} style={{ padding: 'var(--space-3)', borderRadius: 'var(--radius-md)', background: 'var(--white)', border: '2px solid var(--border-medium)', cursor: 'pointer', fontWeight: '600', fontSize: '14px', fontFamily: 'inherit' }}>AI</button>
                     </div>
                 </div>
             </div>
@@ -69,11 +73,12 @@ function PostCard({ p, onLike, onComment, onStudyRequest }) {
     return (
         <div style={{
             background: 'var(--white)',
-            padding: '20px',
+            padding: 'var(--space-6)',
             borderRadius: 'var(--radius-xl)',
-            marginBottom: '16px',
-            boxShadow: 'var(--shadow-md)',
-            transition: 'all var(--transition-fast)'
+            marginBottom: 'var(--space-4)',
+            border: '2px solid var(--border-light)',
+            boxShadow: 'var(--shadow-sm)',
+            transition: 'all var(--transition-base)'
         }}>
             {/* Post Header */}
             <div style={{ display: 'flex', gap: '12px', alignItems: 'center', marginBottom: '16px' }}>
@@ -346,23 +351,24 @@ function PostCard({ p, onLike, onComment, onStudyRequest }) {
 function RightSidebar() {
     return (
         <aside style={{
-            width: '280px',
+            width: '300px',
             position: 'sticky',
-            top: '80px',
+            top: '88px',
             height: 'fit-content'
         }}>
             <div style={{
                 background: 'var(--white)',
-                padding: '20px',
+                padding: 'var(--space-5)',
                 borderRadius: 'var(--radius-xl)',
-                boxShadow: 'var(--shadow-md)'
+                border: '2px solid var(--border-light)',
+                boxShadow: 'var(--shadow-sm)'
             }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
-                    <Lightbulb size={20} style={{ color: 'var(--warning)' }} />
+                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', marginBottom: 'var(--space-4)' }}>
+                    <Lightbulb size={20} style={{ color: 'var(--accent)' }} />
                     <h4 style={{
                         margin: 0,
-                        fontSize: '16px',
-                        fontWeight: '600',
+                        fontSize: '18px',
+                        fontWeight: '700',
                         color: 'var(--text-primary)'
                     }}>
                         Quick Tips
@@ -385,17 +391,18 @@ function RightSidebar() {
 
             <div style={{
                 background: 'var(--white)',
-                padding: '20px',
+                padding: 'var(--space-5)',
                 borderRadius: 'var(--radius-xl)',
-                boxShadow: 'var(--shadow-md)',
-                marginTop: '16px'
+                border: '2px solid var(--border-light)',
+                boxShadow: 'var(--shadow-sm)',
+                marginTop: 'var(--space-4)'
             }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
-                    <MapPin size={20} style={{ color: 'var(--accent-green)' }} />
+                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', marginBottom: 'var(--space-4)' }}>
+                    <MapPin size={20} style={{ color: 'var(--success)' }} />
                     <h4 style={{
                         margin: 0,
-                        fontSize: '16px',
-                        fontWeight: '600',
+                        fontSize: '18px',
+                        fontWeight: '700',
                         color: 'var(--text-primary)'
                     }}>
                         Your Journey
@@ -664,27 +671,30 @@ export default function Feed() {
     return (
         <div style={{
             display: 'flex',
-            gap: '24px',
-            padding: '24px',
+            gap: 'var(--space-6)',
+            padding: 'var(--space-6)',
             maxWidth: '1400px',
-            margin: '0 auto'
+            margin: '0 auto',
+            minHeight: 'calc(100vh - 72px)'
         }}>
             <Sidebar active={activeTab} setActive={setActiveTab} />
 
             <main style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ marginBottom: '24px' }}>
+                <div style={{ marginBottom: 'var(--space-6)' }}>
                     <h2 style={{
                         color: 'var(--text-primary)',
-                        fontSize: '24px',
-                        fontWeight: '600',
-                        margin: '0 0 8px 0'
+                        fontSize: '32px',
+                        fontWeight: '800',
+                        margin: '0 0 var(--space-2) 0',
+                        letterSpacing: '-0.02em'
                     }}>
                         Community Feed
                     </h2>
                     <p style={{
                         color: 'var(--text-secondary)',
-                        fontSize: '15px',
-                        margin: 0
+                        fontSize: '16px',
+                        margin: 0,
+                        lineHeight: '1.6'
                     }}>
                         Discover study insights, connect with peers, and share your journey
                     </p>
@@ -692,10 +702,10 @@ export default function Feed() {
 
                 {/* Create Post Card */}
                 {activeTab !== 'groups' && (
-                    <div style={{ marginBottom: '18px', background: 'var(--white)', padding: 16, borderRadius: 12 }}>
+                    <div style={{ marginBottom: 'var(--space-4)', background: 'var(--white)', padding: 'var(--space-5)', borderRadius: 'var(--radius-xl)', border: '2px solid var(--border-light)', boxShadow: 'var(--shadow-sm)' }}>
                         <form onSubmit={createPost}>
-                            <input value={postTitle} onChange={e => setPostTitle(e.target.value)} placeholder="Title (optional)" style={{ width: '100%', padding: 10, marginBottom: 8, borderRadius: 8, border: '1px solid var(--border-light)' }} />
-                            <textarea value={postContent} onChange={e => setPostContent(e.target.value)} placeholder="Share something... Use #hashtags to categorize" style={{ width: '100%', padding: 10, minHeight: 80, borderRadius: 8, border: '1px solid var(--border-light)' }} />
+                            <input value={postTitle} onChange={e => setPostTitle(e.target.value)} placeholder="Title (optional)" style={{ width: '100%', padding: 'var(--space-3)', marginBottom: 'var(--space-2)', borderRadius: 'var(--radius-md)', border: '2px solid var(--border-medium)', fontSize: '15px', fontFamily: 'inherit', fontWeight: '500' }} />
+                            <textarea value={postContent} onChange={e => setPostContent(e.target.value)} placeholder="Share something... Use #hashtags to categorize" style={{ width: '100%', padding: 'var(--space-3)', minHeight: 100, borderRadius: 'var(--radius-md)', border: '2px solid var(--border-medium)', fontSize: '15px', fontFamily: 'inherit', fontWeight: '500', resize: 'vertical' }} />
                             {postMedia && (
                                 <div style={{ marginTop: 8 }}>
                                     {postIsVideo ? (
@@ -705,12 +715,12 @@ export default function Feed() {
                                     )}
                                 </div>
                             )}
-                            <div style={{ display: 'flex', gap: 8, marginTop: 8, alignItems: 'center' }}>
-                                <label style={{ padding: '8px 12px', background: '#f3f0ff', borderRadius: 8, cursor: 'pointer' }}>
-                                    <ImageIcon size={16} />
+                            <div style={{ display: 'flex', gap: 'var(--space-2)', marginTop: 'var(--space-3)', alignItems: 'center' }}>
+                                <label style={{ padding: 'var(--space-3)', background: 'var(--primary-light)', borderRadius: 'var(--radius-md)', cursor: 'pointer', border: '2px solid transparent', transition: 'all var(--transition-base)' }}>
+                                    <ImageIcon size={18} color="var(--primary)" />
                                     <input type="file" accept="image/*,video/*" onChange={onMediaChange} style={{ display: 'none' }} />
                                 </label>
-                                <button type="submit" disabled={creating} style={{ padding: '8px 12px', borderRadius: 8, background: 'var(--primary-blue)', color: '#fff', border: 'none' }}>{creating ? 'Posting...' : 'Post'}</button>
+                                <button type="submit" disabled={creating} style={{ padding: 'var(--space-3) var(--space-5)', borderRadius: 'var(--radius-md)', background: 'var(--primary)', color: 'var(--white)', border: 'none', fontWeight: '600', fontSize: '14px', cursor: 'pointer', fontFamily: 'inherit' }}>{creating ? 'Posting...' : 'Post'}</button>
                             </div>
                         </form>
                     </div>

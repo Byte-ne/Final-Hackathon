@@ -205,48 +205,47 @@ export default function ExamDetails() {
         <div style={{
             maxWidth: '1400px',
             margin: '0 auto',
-            padding: '24px',
+            padding: 'var(--space-8) var(--space-6)',
             display: 'grid',
-            gridTemplateColumns: '400px 1fr',
-            gap: '32px',
-            minHeight: '100vh'
+            gridTemplateColumns: '420px 1fr',
+            gap: 'var(--space-8)',
+            minHeight: 'calc(100vh - 72px)'
         }}>
-            {/* Exam List Sidebar */}
+            {/* Sidebar */}
             <aside style={{
                 background: 'var(--white)',
-                borderRadius: 'var(--radius-xl)',
-                padding: '24px',
+                borderRadius: 'var(--radius-2xl)',
+                padding: 'var(--space-6)',
+                border: '2px solid var(--border-light)',
                 boxShadow: 'var(--shadow-md)',
                 height: 'fit-content',
                 position: 'sticky',
-                top: '24px'
+                top: '88px'
             }}>
-                <div style={{ marginBottom: '24px' }}>
-                    <div style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '12px',
-                        marginBottom: '16px'
-                    }}>
-                        <Search size={20} style={{ color: 'var(--text-secondary)' }} />
+                <div style={{ marginBottom: 'var(--space-6)' }}>
+                    <h3 style={{ margin: '0 0 var(--space-4) 0', fontSize: '20px', fontWeight: '700', color: 'var(--text-primary)' }}>Search Exams</h3>
+                    <div style={{ position: 'relative' }}>
+                        <Search size={20} style={{ position: 'absolute', left: 'var(--space-4)', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-tertiary)' }} />
                         <input
                             type="search"
-                            placeholder="Search exams"
+                            placeholder="Search exams..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             style={{
-                                flex: 1,
-                                padding: '12px',
-                                border: '1px solid var(--border-light)',
-                                borderRadius: 'var(--radius-md)',
-                                fontSize: '14px',
+                                width: '100%',
+                                padding: 'var(--space-3) var(--space-3) var(--space-3) 48px',
+                                border: '2px solid var(--border-medium)',
+                                borderRadius: 'var(--radius-lg)',
+                                fontSize: '15px',
+                                fontFamily: 'inherit',
+                                fontWeight: '500',
                                 outline: 'none'
                             }}
                         />
                     </div>
                 </div>
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
                     {filteredExams.map((exam) => (
                         <button
                             key={exam.id}
@@ -255,26 +254,28 @@ export default function ExamDetails() {
                                 display: 'flex',
                                 flexDirection: 'column',
                                 alignItems: 'flex-start',
-                                padding: '16px',
-                                background: selectedExam?.id === exam.id ? 'var(--primary-blue)' : 'var(--off-white)',
-                                color: selectedExam?.id === exam.id ? 'white' : 'var(--text-primary)',
-                                border: 'none',
+                                padding: 'var(--space-4)',
+                                background: selectedExam?.id === exam.id ? 'var(--primary)' : 'var(--bg-secondary)',
+                                color: selectedExam?.id === exam.id ? 'var(--white)' : 'var(--text-primary)',
+                                border: `2px solid ${selectedExam?.id === exam.id ? 'var(--primary)' : 'var(--border-light)'}`,
                                 borderRadius: 'var(--radius-lg)',
                                 cursor: 'pointer',
-                                transition: 'all var(--transition-fast)',
-                                textAlign: 'left'
+                                transition: 'all var(--transition-base)',
+                                textAlign: 'left',
+                                fontFamily: 'inherit'
                             }}
                         >
                             <div style={{
                                 fontSize: '16px',
-                                fontWeight: '600',
-                                marginBottom: '4px'
+                                fontWeight: '700',
+                                marginBottom: 'var(--space-1)'
                             }}>
                                 {exam.name}
                             </div>
                             <div style={{
                                 fontSize: '13px',
-                                opacity: selectedExam?.id === exam.id ? 0.9 : 0.7
+                                fontWeight: '600',
+                                opacity: 0.8
                             }}>
                                 {exam.type} • {exam.difficulty}
                             </div>
@@ -288,50 +289,49 @@ export default function ExamDetails() {
                 {selectedExam ? (
                     <article style={{
                         background: 'var(--white)',
-                        borderRadius: 'var(--radius-xl)',
-                        padding: '32px',
+                        borderRadius: 'var(--radius-2xl)',
+                        padding: 'var(--space-8)',
+                        border: '2px solid var(--border-light)',
                         boxShadow: 'var(--shadow-md)'
                     }}>
                         {/* Header */}
                         <header style={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'flex-start',
-                            marginBottom: '32px'
+                            marginBottom: 'var(--space-8)',
+                            paddingBottom: 'var(--space-6)',
+                            borderBottom: '2px solid var(--border-light)'
                         }}>
-                            <div>
-                                <h1 style={{
-                                    fontSize: '32px',
-                                    fontWeight: '700',
-                                    color: 'var(--text-primary)',
-                                    marginBottom: '8px'
+                            <h1 style={{
+                                fontSize: '40px',
+                                fontWeight: '800',
+                                color: 'var(--text-primary)',
+                                marginBottom: 'var(--space-4)',
+                                letterSpacing: '-0.02em'
+                            }}>
+                                {selectedExam.name}
+                            </h1>
+                            <div style={{ display: 'flex', gap: 'var(--space-3)', flexWrap: 'wrap' }}>
+                                <span style={{
+                                    padding: 'var(--space-2) var(--space-4)',
+                                    background: 'var(--primary)',
+                                    color: 'var(--white)',
+                                    borderRadius: 'var(--radius-full)',
+                                    fontSize: '14px',
+                                    fontWeight: '700'
                                 }}>
-                                    {selectedExam.name}
-                                </h1>
-                                <div style={{ display: 'flex', gap: '12px' }}>
-                                    <span style={{
-                                        padding: '6px 12px',
-                                        background: 'var(--primary-blue)',
-                                        color: 'white',
-                                        borderRadius: 'var(--radius-md)',
-                                        fontSize: '14px',
-                                        fontWeight: '500'
-                                    }}>
-                                        {selectedExam.type}
-                                    </span>
-                                    <span style={{
-                                        padding: '6px 12px',
-                                        background: selectedExam.difficulty === 'Very High' ? '#dc3545' :
-                                                   selectedExam.difficulty === 'High' ? '#fd7e14' :
-                                                   selectedExam.difficulty === 'Medium' ? '#ffc107' : '#28a745',
-                                        color: 'white',
-                                        borderRadius: 'var(--radius-md)',
-                                        fontSize: '14px',
-                                        fontWeight: '500'
-                                    }}>
-                                        {selectedExam.difficulty}
-                                    </span>
-                                </div>
+                                    {selectedExam.type}
+                                </span>
+                                <span style={{
+                                    padding: 'var(--space-2) var(--space-4)',
+                                    background: selectedExam.difficulty === 'Very High' ? 'var(--error)' :
+                                               selectedExam.difficulty === 'High' ? 'var(--warning)' :
+                                               selectedExam.difficulty === 'Medium' ? 'var(--accent)' : 'var(--success)',
+                                    color: 'var(--white)',
+                                    borderRadius: 'var(--radius-full)',
+                                    fontSize: '14px',
+                                    fontWeight: '700'
+                                }}>
+                                    {selectedExam.difficulty}
+                                </span>
                             </div>
                         </header>
 

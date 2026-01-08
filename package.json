@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/Byte-ne/Final-Hackathon/issues"
   },
-  "homepage": "https://github.com/Byte-ne/Final-Hackathon#readme"
+  "homepage": "https://github.com/Byte-ne/Final-Hackathon#readme",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
 }

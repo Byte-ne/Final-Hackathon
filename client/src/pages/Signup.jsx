@@ -1,0 +1,173 @@
+import React, { useState } from 'react'
+import { useNavigate, Link } from 'react-router-dom'
+import { Mail, Lock, User, Eye, EyeOff, Compass, CheckCircle } from 'lucide-react'
+
+export default function Signup() {
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [error, setError] = useState('')
+    const [success, setSuccess] = useState(false)
+    const [show, setShow] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const navigate = useNavigate()
+
+    const getDetailedError = (message) => {
+        const errorMap = {
+            'User already exists': 'An account with this email already exists. Please sign in instead.',
+            'Email already in use': 'This email is already registered. Try signing in or use a different email.',
+            'Invalid email': 'Please enter a valid email address.',
+            'Password too short': 'Password must be at least 6 characters long.',
+            'Registration failed': 'Unable to create account. Please try again.',
+            'Network error': 'Connection failed. Please check your internet connection and try again.'
+        }
+        return errorMap[message] || message
+    }
+
+    async function handle(e) {
+        e.preventDefault()
+        setError('')
+        setSuccess(false)
+        setLoading(true)
+
+        // Client-side validation
+        if (name.trim().length < 2) {
+            setError('Name must be at least 2 characters long.')
+            setLoading(false)
+            return
+        }
+
+        if (password.length < 6) {
+            setError('Password must be at least 6 characters long for security.')
+            setLoading(false)
+            return
+        }
+
+        try {
+            const res = await fetch('http://localhost:5000/api/auth/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, password })
+            })
+            const data = await res.json()
+            
+            if (!res.ok) {
+                setError(getDetailedError(data.message || 'Registration failed'))
+                setLoading(false)
+                return
+            }
+            
+            // Show success animation
+            setSuccess(true)
+            localStorage.setItem('token', data.token)
+            
+            // Navigate after success animation
+            setTimeout(() => {
+                navigate('/profile')
+            }, 1500)
+        } catch (err) {
+            setError(getDetailedError('Network error'))
+            setLoading(false)
+        }
+    }
+
+    return (
+        <div className="auth-shell">
+            <form className="auth-card" onSubmit={handle}>
+                {success ? (
+                    <CheckCircle className="auth-card-icon" size={40} style={{ color: 'var(--accent-green)' }} />
+                ) : (
+                    <Compass className="auth-card-icon" size={40} />
+                )}
+                
+                <h2 className="title">
+                    {success ? 'Welcome Aboard!' : 'Start Your Journey'}
+                </h2>
+                <p className="subtitle">
+                    {success ? 'Your account has been created successfully' : 'Create an account to chart your exam preparation path'}
+                </p>
+                
+                {error && <div className="error">{error}</div>}
+                {success && <div className="success">Account created! Redirecting to your dashboard...</div>}
+
+                {!success && (
+                    <>
+                        <div className="field">
+                            <label htmlFor="name" className="field-label">Full Name</label>
+                            <div className="field-input-wrapper">
+                                <User size={18} className="field-icon" />
+                                <input 
+                                    id="name"
+                                    type="text"
+                                    placeholder="Enter your full name"
+                                    value={name} 
+                                    onChange={e => setName(e.target.value)} 
+                                    required 
+                                    disabled={loading}
+                                    minLength={2}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="field">
+                            <label htmlFor="email" className="field-label">Email</label>
+                            <div className="field-input-wrapper">
+                                <Mail size={18} className="field-icon" />
+                                <input 
+                                    id="email"
+                                    type="email"
+                                    placeholder="Enter your email"
+                                    value={email} 
+                                    onChange={e => setEmail(e.target.value)} 
+                                    required 
+                                    disabled={loading}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="field">
+                            <label htmlFor="password" className="field-label">Password</label>
+                            <div className="field-input-wrapper">
+                                <Lock size={18} className="field-icon" />
+                                <input 
+                                    id="password"
+                                    type={show ? 'text' : 'password'}
+                                    placeholder="Create a password (min. 6 characters)"
+                                    value={password} 
+                                    onChange={e => setPassword(e.target.value)} 
+                                    required 
+                                    disabled={loading}
+                                    minLength={6}
+                                />
+                                <button 
+                                    type="button" 
+                                    className="show-btn" 
+                                    onClick={() => setShow(s => !s)} 
+                                    aria-label="Toggle password visibility"
+                                    disabled={loading}
+                                >
+                                    {show ? <EyeOff size={18} /> : <Eye size={18} />}
+                                </button>
+                            </div>
+                        </div>
+
+                        <button className="submit" type="submit" disabled={loading}>
+                            {loading ? (
+                                <>
+                                    <span className="spinner"></span>
+                                    Creating account...
+                                </>
+                            ) : (
+                                'Create Account'
+                            )}
+                        </button>
+
+                        <div className="auth-footer">
+                            Already have an account? <Link to="/login" className="auth-link">Sign in</Link>
+                        </div>
+                    </>
+                )}
+            </form>
+        </div>
+    )
+}

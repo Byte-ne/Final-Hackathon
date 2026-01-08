@@ -1,117 +1,63 @@
 import React, { useEffect, useState } from 'react'
-import { Home, TrendingUp, Users, BookOpen, Target, Heart, MessageSquare, Send, MapPin, Lightbulb, Image as ImageIcon } from 'lucide-react'
+import { io as ioClient } from 'socket.io-client'
+import { Home, TrendingUp, Users, Heart, MessageSquare, Send, MapPin, Lightbulb, Image as ImageIcon, UserPlus, Edit3, ChevronsLeft, ChevronsRight, Trash } from 'lucide-react'
 
-function Sidebar() {
+function Sidebar({ active, setActive }) {
+    const tabs = [
+        { key: 'home', label: 'Home', icon: Home },
+        { key: 'trending', label: 'Trending Exams', icon: TrendingUp },
+        { key: 'groups', label: 'Study Groups', icon: Users },
+        { key: 'challenge', label: 'Challenge', icon: Lightbulb }
+    ]
+
     return (
-        <aside style={{ 
-            width: '260px', 
-            position: 'sticky',
-            top: '80px',
-            height: 'fit-content'
-        }}>
-            <div style={{
-                background: 'var(--white)',
-                padding: '20px',
-                borderRadius: 'var(--radius-xl)',
-                boxShadow: 'var(--shadow-md)'
-            }}>
-                <h3 style={{ 
-                    margin: '0 0 16px 0', 
-                    color: 'var(--text-primary)',
-                    fontSize: '18px',
-                    fontWeight: '600'
-                }}>
-                    Explore
-                </h3>
-                <nav style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                    <a 
-                        href="#" 
-                        style={{ 
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '12px',
-                            padding: '10px 12px',
-                            color: 'var(--text-primary)',
-                            textDecoration: 'none',
-                            borderRadius: 'var(--radius-md)',
-                            background: '#E8F0FE',
-                            fontWeight: '500',
-                            fontSize: '14px',
-                            transition: 'all var(--transition-fast)'
-                        }}
-                    >
-                        <Home size={18} style={{ color: 'var(--primary-blue)' }} />
-                        Home
-                    </a>
-                    <a 
-                        href="#" 
-                        style={{ 
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '12px',
-                            padding: '10px 12px',
-                            color: 'var(--text-secondary)',
-                            textDecoration: 'none',
-                            borderRadius: 'var(--radius-md)',
-                            fontSize: '14px',
-                            transition: 'all var(--transition-fast)'
-                        }}
-                    >
-                        <TrendingUp size={18} />
-                        Trending Exams
-                    </a>
-                    <a 
-                        href="#" 
-                        style={{ 
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '12px',
-                            padding: '10px 12px',
-                            color: 'var(--text-secondary)',
-                            textDecoration: 'none',
-                            borderRadius: 'var(--radius-md)',
-                            fontSize: '14px',
-                            transition: 'all var(--transition-fast)'
-                        }}
-                    >
-                        <Users size={18} />
-                        Study Groups
-                    </a>
-                    <a 
-                        href="#" 
-                        style={{ 
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '12px',
-                            padding: '10px 12px',
-                            color: 'var(--text-secondary)',
-                            textDecoration: 'none',
-                            borderRadius: 'var(--radius-md)',
-                            fontSize: '14px',
-                            transition: 'all var(--transition-fast)'
-                        }}
-                    >
-                        <BookOpen size={18} />
-                        Resources
-                    </a>
-                    <a 
-                        href="#" 
-                        style={{ 
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '12px',
-                            padding: '10px 12px',
-                            color: 'var(--text-secondary)',
-                            textDecoration: 'none',
-                            borderRadius: 'var(--radius-md)',
-                            fontSize: '14px',
-                            transition: 'all var(--transition-fast)'
-                        }}
-                    >
-                        <Target size={18} />
-                        My Targets
-                    </a>
+        <aside style={{ width: '260px', position: 'sticky', top: '80px', height: 'fit-content' }}>
+            <div style={{ background: 'var(--white)', padding: '12px', borderRadius: '12px' }}>
+                <h3 style={{ margin: '0 0 12px 0', color: 'var(--text-primary)', fontSize: '18px' }}>Explore</h3>
+                <nav style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                    {tabs.map(t => {
+                        const Icon = t.icon
+                        const isActive = active === t.key
+                        return (
+                            <button
+                                type="button"
+                                key={t.key}
+                                onClick={() => setActive(t.key)}
+                                style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '12px',
+                                    padding: '10px 12px',
+                                    color: isActive ? 'var(--primary-blue)' : 'var(--text-secondary)',
+                                    background: isActive ? 'rgba(138,108,255,0.08)' : 'transparent',
+                                    border: 'none',
+                                    borderRadius: '10px',
+                                    textAlign: 'left',
+                                    cursor: 'pointer'
+                                }}
+                            >
+                                <Icon size={18} />
+                                {t.label}
+                            </button>
+                        )
+                    })}
                 </nav>
+                {/* Unique sidebar features */}
+                <div style={{ marginTop: 12, borderTop: '1px dashed var(--border-light)', paddingTop: 12 }}>
+                    <div style={{ fontSize: 13, color: 'var(--text-secondary)', marginBottom: 8 }}>Trending Tags</div>
+                    <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                        {['jee', 'neet', 'upsc', 'studygroup', 'resource'].map((t, i) => (
+                            <button key={i} type="button" onClick={() => setActive('trending')} style={{ padding: '6px 10px', background: 'linear-gradient(90deg, rgba(138,108,255,0.12), rgba(138,108,255,0.04))', border: 'none', borderRadius: 999, color: 'var(--primary-blue)', fontSize: 12, cursor: 'pointer', transition: 'transform 160ms' }}>
+                                #{t}
+                            </button>
+                        ))}
+                    </div>
+
+                    <div style={{ marginTop: 12, display: 'flex', gap: 8 }}>
+                        <button type="button" onClick={() => alert('Start a Study Room feature coming soon')} style={{ flex: 1, padding: '8px 10px', borderRadius: 8, background: 'var(--primary-blue)', color: '#fff', border: 'none', cursor: 'pointer' }}>Start Room</button>
+                        <button type="button" onClick={() => alert('AI Summary coming soon')} style={{ padding: '8px 10px', borderRadius: 8, background: 'var(--off-white)', border: '1px solid var(--border-light)', cursor: 'pointer' }}>AI</button>
+                    </div>
+                </div>
             </div>
         </aside>
     )
@@ -122,10 +68,10 @@ function PostCard({ p, onLike, onComment, onStudyRequest }) {
     const [showComments, setShowComments] = useState(false)
 
     return (
-        <div style={{ 
-            background: 'var(--white)', 
-            padding: '20px', 
-            borderRadius: 'var(--radius-xl)', 
+        <div style={{
+            background: 'var(--white)',
+            padding: '20px',
+            borderRadius: 'var(--radius-xl)',
             marginBottom: '16px',
             boxShadow: 'var(--shadow-md)',
             transition: 'all var(--transition-fast)'
@@ -133,16 +79,16 @@ function PostCard({ p, onLike, onComment, onStudyRequest }) {
             {/* Post Header */}
             <div style={{ display: 'flex', gap: '12px', alignItems: 'center', marginBottom: '16px' }}>
                 {p.author.profilePic ? (
-                    <img 
-                        src={p.author.profilePic} 
-                        alt="avatar" 
-                        style={{ 
-                            width: '48px', 
-                            height: '48px', 
-                            borderRadius: '50%', 
+                    <img
+                        src={p.author.profilePic}
+                        alt="avatar"
+                        style={{
+                            width: '48px',
+                            height: '48px',
+                            borderRadius: '50%',
                             objectFit: 'cover',
                             border: '2px solid var(--off-white)'
-                        }} 
+                        }}
                     />
                 ) : (
                     <div style={{
@@ -165,8 +111,8 @@ function PostCard({ p, onLike, onComment, onStudyRequest }) {
                         {p.author.name}
                     </div>
                     <div style={{ color: 'var(--text-secondary)', fontSize: '13px' }}>
-                        {new Date(p.createdAt).toLocaleString('en-US', { 
-                            month: 'short', 
+                        {new Date(p.createdAt).toLocaleString('en-US', {
+                            month: 'short',
                             day: 'numeric',
                             hour: '2-digit',
                             minute: '2-digit'
@@ -177,71 +123,82 @@ function PostCard({ p, onLike, onComment, onStudyRequest }) {
 
             {/* Post Content */}
             <div style={{ marginBottom: '16px' }}>
-                <h4 style={{ 
-                    margin: '0 0 8px 0', 
+                <h4 style={{
+                    margin: '0 0 8px 0',
                     color: 'var(--text-primary)',
                     fontSize: '18px',
                     fontWeight: '600'
                 }}>
                     {p.title}
                 </h4>
-                <p style={{ 
-                    margin: '0 0 12px 0', 
+                <p style={{
+                    margin: '0 0 12px 0',
                     color: 'var(--text-primary)',
                     fontSize: '15px',
                     lineHeight: '1.6'
                 }}>
                     {p.content}
                 </p>
-                
+
                 {/* Media */}
                 {p.media && p.media.length > 0 && (
                     <div style={{ marginTop: '12px' }}>
                         {p.isVideo ? (
-                            <video 
-                                src={p.media[0]} 
-                                controls 
-                                style={{ 
-                                    width: '100%', 
+                            <video
+                                src={p.media[0]}
+                                controls
+                                style={{
+                                    width: '100%',
                                     borderRadius: 'var(--radius-lg)',
                                     maxHeight: '400px',
                                     objectFit: 'cover'
-                                }} 
+                                }}
                             />
                         ) : (
-                            <img 
-                                src={p.media[0]} 
-                                alt="media" 
-                                style={{ 
-                                    width: '100%', 
+                            <img
+                                src={p.media[0]}
+                                alt="media"
+                                style={{
+                                    width: '100%',
                                     borderRadius: 'var(--radius-lg)',
                                     maxHeight: '400px',
                                     objectFit: 'cover'
-                                }} 
+                                }}
                             />
                         )}
+                    </div>
+                )}
+                {/* Tags */}
+                {p.tags && p.tags.length > 0 && (
+                    <div style={{ marginTop: 10, display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                        {p.tags.map((t, i) => (
+                            <span key={i} style={{ padding: '6px 10px', background: '#f1edff', color: '#4a2bff', borderRadius: 999, fontSize: 12 }}>
+                                #{t}
+                            </span>
+                        ))}
                     </div>
                 )}
             </div>
 
             {/* Action Buttons */}
-            <div style={{ 
-                display: 'flex', 
-                gap: '8px', 
+            <div style={{
+                display: 'flex',
+                gap: '8px',
                 paddingTop: '12px',
                 borderTop: '1px solid var(--border-light)',
                 marginBottom: '12px'
             }}>
-                <button 
+                <button
+                    type="button"
                     onClick={() => onLike(p._id)}
-                    style={{ 
+                    style={{
                         display: 'flex',
                         alignItems: 'center',
                         gap: '6px',
-                        padding: '8px 16px', 
-                        borderRadius: 'var(--radius-md)', 
-                        background: 'var(--off-white)', 
-                        color: 'var(--text-primary)', 
+                        padding: '8px 16px',
+                        borderRadius: 'var(--radius-md)',
+                        background: 'var(--off-white)',
+                        color: 'var(--text-primary)',
                         border: 'none',
                         cursor: 'pointer',
                         fontSize: '14px',
@@ -252,17 +209,18 @@ function PostCard({ p, onLike, onComment, onStudyRequest }) {
                     <Heart size={16} style={{ color: 'var(--error)' }} />
                     {p.likes?.length || 0}
                 </button>
-                
-                <button 
+
+                <button
+                    type="button"
                     onClick={() => setShowComments(!showComments)}
-                    style={{ 
+                    style={{
                         display: 'flex',
                         alignItems: 'center',
                         gap: '6px',
-                        padding: '8px 16px', 
-                        borderRadius: 'var(--radius-md)', 
-                        background: 'var(--off-white)', 
-                        color: 'var(--text-primary)', 
+                        padding: '8px 16px',
+                        borderRadius: 'var(--radius-md)',
+                        background: 'var(--off-white)',
+                        color: 'var(--text-primary)',
                         border: 'none',
                         cursor: 'pointer',
                         fontSize: '14px',
@@ -273,17 +231,18 @@ function PostCard({ p, onLike, onComment, onStudyRequest }) {
                     <MessageSquare size={16} style={{ color: 'var(--primary-blue)' }} />
                     {p.comments?.length || 0}
                 </button>
-                
-                <button 
+
+                <button
+                    type="button"
                     onClick={() => onStudyRequest(p._id)}
-                    style={{ 
+                    style={{
                         display: 'flex',
                         alignItems: 'center',
                         gap: '6px',
-                        padding: '8px 16px', 
-                        borderRadius: 'var(--radius-md)', 
-                        background: '#E6F4EA', 
-                        color: 'var(--accent-green)', 
+                        padding: '8px 16px',
+                        borderRadius: 'var(--radius-md)',
+                        background: '#E6F4EA',
+                        color: 'var(--accent-green)',
                         border: 'none',
                         cursor: 'pointer',
                         fontSize: '14px',
@@ -302,11 +261,20 @@ function PostCard({ p, onLike, onComment, onStudyRequest }) {
                 <div style={{ marginTop: '12px' }}>
                     {/* Comment Input */}
                     <div style={{ display: 'flex', gap: '8px', marginBottom: '12px' }}>
-                        <input 
-                            value={commentText} 
-                            onChange={e => setCommentText(e.target.value)} 
-                            placeholder="Write a comment..." 
-                            style={{ 
+                        <input
+                            value={commentText}
+                            onChange={e => setCommentText(e.target.value)}
+                            onKeyDown={e => {
+                                if (e.key === 'Enter') {
+                                    e.preventDefault()
+                                    if (commentText.trim()) {
+                                        onComment(p._id, commentText)
+                                        setCommentText('')
+                                    }
+                                }
+                            }}
+                            placeholder="Write a comment..."
+                            style={{
                                 flex: 1,
                                 padding: '10px 12px',
                                 border: '1px solid var(--border-light)',
@@ -316,21 +284,22 @@ function PostCard({ p, onLike, onComment, onStudyRequest }) {
                                 transition: 'all var(--transition-fast)'
                             }}
                         />
-                        <button 
-                            onClick={() => { 
+                        <button
+                            type="button"
+                            onClick={() => {
                                 if (commentText.trim()) {
-                                    onComment(p._id, commentText); 
-                                    setCommentText('');
+                                    onComment(p._id, commentText)
+                                    setCommentText('')
                                 }
                             }}
-                            style={{ 
+                            style={{
                                 display: 'flex',
                                 alignItems: 'center',
                                 gap: '6px',
-                                padding: '10px 16px', 
-                                borderRadius: 'var(--radius-md)', 
-                                background: 'var(--primary-blue)', 
-                                color: 'var(--white)', 
+                                padding: '10px 16px',
+                                borderRadius: 'var(--radius-md)',
+                                background: 'var(--primary-blue)',
+                                color: 'var(--white)',
                                 border: 'none',
                                 cursor: 'pointer',
                                 fontSize: '14px',
@@ -342,21 +311,21 @@ function PostCard({ p, onLike, onComment, onStudyRequest }) {
                             <Send size={16} />
                         </button>
                     </div>
-                    
+
                     {/* Comments List */}
                     {p.comments && p.comments.length > 0 && (
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                             {p.comments.map((c, i) => (
-                                <div 
-                                    key={i} 
-                                    style={{ 
-                                        padding: '12px', 
-                                        background: 'var(--off-white)', 
+                                <div
+                                    key={i}
+                                    style={{
+                                        padding: '12px',
+                                        background: 'var(--off-white)',
                                         borderRadius: 'var(--radius-md)'
                                     }}
                                 >
-                                    <div style={{ 
-                                        fontSize: '14px', 
+                                    <div style={{
+                                        fontSize: '14px',
                                         color: 'var(--text-primary)',
                                         lineHeight: '1.5'
                                     }}>
@@ -377,7 +346,7 @@ function PostCard({ p, onLike, onComment, onStudyRequest }) {
 
 function RightSidebar() {
     return (
-        <aside style={{ 
+        <aside style={{
             width: '280px',
             position: 'sticky',
             top: '80px',
@@ -391,16 +360,16 @@ function RightSidebar() {
             }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
                     <Lightbulb size={20} style={{ color: 'var(--warning)' }} />
-                    <h4 style={{ 
-                        margin: 0, 
-                        fontSize: '16px', 
+                    <h4 style={{
+                        margin: 0,
+                        fontSize: '16px',
                         fontWeight: '600',
                         color: 'var(--text-primary)'
                     }}>
                         Quick Tips
                     </h4>
                 </div>
-                <ul style={{ 
+                <ul style={{
                     paddingLeft: '20px',
                     margin: 0,
                     color: 'var(--text-secondary)',
@@ -424,16 +393,16 @@ function RightSidebar() {
             }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
                     <MapPin size={20} style={{ color: 'var(--accent-green)' }} />
-                    <h4 style={{ 
-                        margin: 0, 
-                        fontSize: '16px', 
+                    <h4 style={{
+                        margin: 0,
+                        fontSize: '16px',
                         fontWeight: '600',
                         color: 'var(--text-primary)'
                     }}>
                         Your Journey
                     </h4>
                 </div>
-                <p style={{ 
+                <p style={{
                     margin: 0,
                     color: 'var(--text-secondary)',
                     fontSize: '14px',
@@ -449,62 +418,300 @@ function RightSidebar() {
 export default function Feed() {
     const [posts, setPosts] = useState([])
     const [loading, setLoading] = useState(true)
+    const [activeTab, setActiveTab] = useState('home')
+    const [user, setUser] = useState(null)
+    const [groups, setGroups] = useState([])
+    const [selectedGroup, setSelectedGroup] = useState(null)
+    const [groupMessages, setGroupMessages] = useState([])
+    const [groupMessageText, setGroupMessageText] = useState('')
+    const [groupsCollapsed, setGroupsCollapsed] = useState(false)
+    const [addMemberModal, setAddMemberModal] = useState({ open: false, groupId: null })
+    const [memberSearchQuery, setMemberSearchQuery] = useState('')
+    const [memberSearchResults, setMemberSearchResults] = useState([])
+    const [renaming, setRenaming] = useState(false)
+    const [newGroupName, setNewGroupName] = useState('')
+    const [challengeExam, setChallengeExam] = useState('JEE')
+    const [challengeBuddy, setChallengeBuddy] = useState(null)
+    const [challengeActive, setChallengeActive] = useState(false)
+    const [challengeData, setChallengeData] = useState(null)
+    const [buddyOptions, setBuddyOptions] = useState([])
+    const [answersState, setAnswersState] = useState({})
+    const [hideSidebars, setHideSidebars] = useState(false)
+
+    // create post state
+    const [creating, setCreating] = useState(false)
+    const [postContent, setPostContent] = useState('')
+    const [postTitle, setPostTitle] = useState('')
+    const [postMedia, setPostMedia] = useState(null)
+    const [postIsVideo, setPostIsVideo] = useState(false)
 
     function load() {
         setLoading(true)
         fetch('http://localhost:5000/api/posts')
             .then(r => r.json())
-            .then(data => { 
-                setPosts(data); 
+            .then(data => {
+                setPosts(data);
                 setLoading(false);
             })
             .catch(() => setLoading(false))
     }
 
-    useEffect(() => { load() }, [])
+    // load current user for My Targets
+    async function loadUser() {
+        const token = localStorage.getItem('token')
+        if (!token) return
+        try {
+            const res = await fetch('http://localhost:5000/api/auth/me', { headers: { 'Authorization': `Bearer ${token}` } })
+            const data = await res.json()
+            if (!res.ok) return
+            setUser(data)
+        } catch (e) {/*ignore*/ }
+    }
+
+    useEffect(() => { load(); loadUser() }, [])
+
+    useEffect(() => {
+        if (activeTab === 'groups') loadGroups()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [activeTab])
+
+    // load study buddy details for selection (best-effort)
+    useEffect(() => {
+        async function loadBuddies() {
+            try {
+                const token = localStorage.getItem('token')
+                if (!user || !user.studyBuddies || user.studyBuddies.length === 0) { setBuddyOptions([]); return }
+                const items = await Promise.all(user.studyBuddies.map(async id => {
+                    try {
+                        const res = await fetch(`http://localhost:5000/api/users/search?q=${encodeURIComponent(id)}`, { headers: { Authorization: `Bearer ${token}` } })
+                        const d = await res.json()
+                        if (Array.isArray(d) && d.length) return d[0]
+                    } catch (e) { }
+                    return null
+                }))
+                setBuddyOptions(items.filter(Boolean))
+            } catch (e) { setBuddyOptions([]) }
+        }
+        loadBuddies()
+    }, [user])
+
+    async function searchMember(q) {
+        try {
+            const token = localStorage.getItem('token')
+            const res = await fetch(`http://localhost:5000/api/users/search?q=${encodeURIComponent(q)}`, { headers: { Authorization: `Bearer ${token}` } })
+            const data = await res.json()
+            setMemberSearchResults(Array.isArray(data) ? data : [])
+        } catch (e) { setMemberSearchResults([]) }
+    }
+
+    async function addMemberToGroup(groupId, memberId) {
+        try {
+            const token = localStorage.getItem('token')
+            const res = await fetch(`http://localhost:5000/api/groups/${groupId}/add-member`, { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify({ memberId }) })
+            const data = await res.json()
+            if (res.ok) {
+                // refresh groups and selected group
+                loadGroups()
+                if (selectedGroup && selectedGroup._id === groupId) selectGroup(groupId)
+                setAddMemberModal({ open: false, groupId: null })
+            } else alert(data.message || 'Failed')
+        } catch (e) { alert('Failed to add member') }
+    }
+
+    async function renameGroup(groupId, name) {
+        try {
+            const token = localStorage.getItem('token')
+            const res = await fetch(`http://localhost:5000/api/groups/${groupId}/rename`, { method: 'PATCH', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify({ name }) })
+            const data = await res.json()
+            if (res.ok) {
+                loadGroups()
+                selectGroup(groupId)
+                setRenaming(false)
+            } else alert(data.message || 'Rename failed')
+        } catch (e) { alert('Rename failed') }
+    }
+
+    useEffect(() => {
+        const socket = ioClient('http://localhost:5000')
+        socket.on('connect', () => console.log('connected to socket', socket.id))
+        socket.on('post:created', (p) => {
+            setPosts(prev => [p, ...prev])
+        })
+        socket.on('post:liked', ({ id, likes }) => {
+            setPosts(prev => prev.map(x => x._id === id ? ({ ...x, likes: new Array(likes).fill(null) }) : x))
+        })
+        socket.on('post:commented', ({ id, comments }) => {
+            setPosts(prev => prev.map(x => x._id === id ? ({ ...x, comments }) : x))
+        })
+        socket.on('group:message', ({ groupId, message }) => {
+            setGroupMessages(prev => prev.concat([message]))
+            // if currently selected group, append; otherwise ignore
+        })
+        // Live updates for group rename and member additions
+        socket.on('group:renamed', ({ groupId, name }) => {
+            setGroups(prev => prev.map(g => (g._id === groupId ? { ...g, name } : g)))
+            setSelectedGroup(prev => (prev && prev._id === groupId ? { ...prev, name } : prev))
+        })
+
+        socket.on('group:member-added', async ({ groupId, memberId }) => {
+            setGroups(prev => prev.map(g => (g._id === groupId ? { ...g, members: Array.isArray(g.members) ? [...g.members, memberId] : [memberId] } : g)))
+            // if the group is open, refresh its details
+            setSelectedGroup(prev => {
+                if (prev && prev._id === groupId) {
+                    // fetch updated group
+                    (async () => {
+                        try {
+                            const res = await fetch(`http://localhost:5000/api/groups/${groupId}`)
+                            const data = await res.json()
+                            setSelectedGroup(data)
+                            setGroupMessages(data.messages || [])
+                        } catch (e) { console.warn('Failed to refresh group after member added') }
+                    })()
+                }
+                return prev
+            })
+        })
+        // challenge start listener
+        socket.on('challenge:start', ({ challengeId, challenger, recipient, questions, exam }) => {
+            const meId = localStorage.getItem('userId')
+            // if current user is participant, switch to feed and start animation/challenge
+            if (meId === challenger || meId === recipient) {
+                setActiveTab('home')
+                // small timeout to simulate redirect animation
+                setTimeout(() => {
+                    setHideSidebars(true)
+                    setChallengeActive(true)
+                    setChallengeData({ challengeId, questions, exam })
+                }, 500)
+            }
+        })
+        return () => { socket.disconnect() }
+    }, [])
+
+    // create post helpers
+    function onMediaChange(e) {
+        const f = e.target.files && e.target.files[0]
+        if (!f) return
+        const reader = new FileReader()
+        reader.onload = () => {
+            setPostMedia(reader.result)
+            setPostIsVideo(f.type.startsWith('video'))
+        }
+        reader.readAsDataURL(f)
+    }
+
+    async function createPost(e) {
+        e && e.preventDefault()
+        setCreating(true)
+        const token = localStorage.getItem('token')
+        try {
+            const res = await fetch('http://localhost:5000/api/posts', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                body: JSON.stringify({ title: postTitle, content: postContent, media: postMedia ? [postMedia] : [], isVideo: postIsVideo })
+            })
+            const data = await res.json()
+            if (res.ok) {
+                setPostContent(''); setPostTitle(''); setPostMedia(null); setPostIsVideo(false)
+                load()
+            } else {
+                alert(data.message || 'Failed')
+            }
+        } catch (err) { alert('Network error') }
+        setCreating(false)
+    }
+
+    // filter posts based on active tab
+    const displayedPosts = posts.filter(p => {
+        if (activeTab === 'home') return true
+        if (activeTab === 'trending') {
+            const examTags = ['jee', 'upsc', 'clat', 'neet']
+            return (p.tags || []).some(t => examTags.includes(t))
+        }
+        if (activeTab === 'groups') return (p.tags || []).includes('studygroup')
+        return true
+    })
 
     async function like(id) {
-        await fetch(`http://localhost:5000/api/posts/${id}/like`, { 
-            method: 'POST', 
-            headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` } 
+        await fetch(`http://localhost:5000/api/posts/${id}/like`, {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
         })
         load()
     }
 
     async function comment(id, text) {
         if (!text) return
-        await fetch(`http://localhost:5000/api/posts/${id}/comment`, { 
-            method: 'POST', 
-            headers: { 
-                'Content-Type': 'application/json', 
-                'Authorization': `Bearer ${localStorage.getItem('token')}` 
-            }, 
-            body: JSON.stringify({ text }) 
+        await fetch(`http://localhost:5000/api/posts/${id}/comment`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            },
+            body: JSON.stringify({ text })
         })
         load()
     }
 
     async function studyRequest(id) {
-        await fetch(`http://localhost:5000/api/posts/${id}/study-request`, { 
-            method: 'POST', 
-            headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` } 
+        await fetch(`http://localhost:5000/api/posts/${id}/study-request`, {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
         })
         alert('Study buddy request sent! 🎯')
     }
 
+    // Groups helpers
+    async function loadGroups() {
+        try {
+            const res = await fetch('http://localhost:5000/api/groups')
+            const data = await res.json()
+            if (Array.isArray(data)) setGroups(data)
+        } catch (e) { }
+    }
+
+    async function selectGroup(id) {
+        try {
+            const res = await fetch(`http://localhost:5000/api/groups/${id}`)
+            const data = await res.json()
+            setSelectedGroup(data)
+            setGroupMessages(data.messages || [])
+        } catch (e) { }
+    }
+
+    async function createGroup(name) {
+        try {
+            const token = localStorage.getItem('token')
+            const res = await fetch('http://localhost:5000/api/groups', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }, body: JSON.stringify({ name, members: [] }) })
+            const data = await res.json()
+            setGroups(g => [data, ...g])
+            return data
+        } catch (e) { alert('Failed creating group') }
+    }
+
+    async function sendGroupMessage(groupId, text) {
+        try {
+            const token = localStorage.getItem('token')
+            const res = await fetch(`http://localhost:5000/api/groups/${groupId}/message`, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }, body: JSON.stringify({ text }) })
+            const data = await res.json()
+            // message will be appended via socket event
+            return data
+        } catch (e) { console.warn(e) }
+    }
+
     return (
-        <div style={{ 
-            display: 'flex', 
-            gap: '24px', 
+        <div style={{
+            display: 'flex',
+            gap: '24px',
             padding: '24px',
             maxWidth: '1400px',
             margin: '0 auto'
         }}>
-            <Sidebar />
-            
+            {!hideSidebars && <Sidebar active={activeTab} setActive={setActiveTab} />}
+
             <main style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ marginBottom: '24px' }}>
-                    <h2 style={{ 
+                    <h2 style={{
                         color: 'var(--text-primary)',
                         fontSize: '24px',
                         fontWeight: '600',
@@ -512,7 +719,7 @@ export default function Feed() {
                     }}>
                         Community Feed
                     </h2>
-                    <p style={{ 
+                    <p style={{
                         color: 'var(--text-secondary)',
                         fontSize: '15px',
                         margin: 0
@@ -521,8 +728,94 @@ export default function Feed() {
                     </p>
                 </div>
 
+                {/* Create Post Card */}
+                {!challengeActive && activeTab !== 'groups' && (
+                    <div style={{ marginBottom: '18px', background: 'var(--white)', padding: 16, borderRadius: 12 }}>
+                        <form onSubmit={createPost}>
+                            <input value={postTitle} onChange={e => setPostTitle(e.target.value)} placeholder="Title (optional)" style={{ width: '100%', padding: 10, marginBottom: 8, borderRadius: 8, border: '1px solid var(--border-light)' }} />
+                            <textarea value={postContent} onChange={e => setPostContent(e.target.value)} placeholder="Share something... Use #hashtags to categorize" style={{ width: '100%', padding: 10, minHeight: 80, borderRadius: 8, border: '1px solid var(--border-light)' }} />
+                            {postMedia && (
+                                <div style={{ marginTop: 8 }}>
+                                    {postIsVideo ? (
+                                        <video src={postMedia} controls style={{ width: '100%', borderRadius: 8 }} />
+                                    ) : (
+                                        <img src={postMedia} alt="preview" style={{ width: '100%', borderRadius: 8 }} />
+                                    )}
+                                </div>
+                            )}
+                            <div style={{ display: 'flex', gap: 8, marginTop: 8, alignItems: 'center' }}>
+                                <label style={{ padding: '8px 12px', background: '#f3f0ff', borderRadius: 8, cursor: 'pointer' }}>
+                                    <ImageIcon size={16} />
+                                    <input type="file" accept="image/*,video/*" onChange={onMediaChange} style={{ display: 'none' }} />
+                                </label>
+                                <button type="submit" disabled={creating} style={{ padding: '8px 12px', borderRadius: 8, background: 'var(--primary-blue)', color: '#fff', border: 'none' }}>{creating ? 'Posting...' : 'Post'}</button>
+                            </div>
+                        </form>
+                    </div>
+                )}
+
+                {/* If a challenge is active, render immersive challenge UI */}
+                {challengeActive && challengeData && (
+                    <div style={{ background: 'var(--white)', padding: 20, borderRadius: 12, boxShadow: 'var(--shadow-md)' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+                            <h3 style={{ margin: 0 }}>Challenge — {challengeData.exam}</h3>
+                            <div style={{ color: 'var(--text-secondary)' }}>Good luck!</div>
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                            {(challengeData.questions || []).map((q, qi) => (
+                                <div key={qi} style={{ padding: 12, borderRadius: 8, background: 'var(--off-white)' }}>
+                                    <div style={{ fontWeight: 700, marginBottom: 8 }}>{qi + 1}. {q.question}</div>
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                                        {(q.options || []).map((opt, oi) => (
+                                            <label key={oi} style={{ display: 'flex', gap: 8, alignItems: 'center', cursor: 'pointer' }}>
+                                                <input type="radio" name={`q-${qi}`} checked={answersState[qi] === oi} onChange={() => setAnswersState(s => ({ ...s, [qi]: oi }))} />
+                                                <span>{opt}</span>
+                                            </label>
+                                        ))}
+                                    </div>
+                                </div>
+                            ))}
+
+                            <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end' }}>
+                                <button type="button" onClick={async () => {
+                                    const all = (challengeData.questions || []).length
+                                    const answered = Object.keys(answersState).length
+                                    if (answered < all) return alert('Please answer all questions before submitting')
+                                    try {
+                                        const token = localStorage.getItem('token')
+                                        const payload = Object.keys(answersState).map(k => ({ qIndex: parseInt(k, 10), choice: answersState[k] }))
+                                        const res = await fetch(`http://localhost:5000/api/challenges/${challengeData.challengeId}/submit`, { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify({ answers: payload }) })
+                                        const d = await res.json()
+                                        if (res.ok) {
+                                            alert('Submitted — your score: ' + (d.score || 0))
+                                            setChallengeActive(false)
+                                            setHideSidebars(false)
+                                            // refresh feed
+                                            load()
+                                        } else alert(d.message || 'Failed')
+                                    } catch (e) { alert('Submission failed') }
+                                }} style={{ padding: 8, border: 'none', borderRadius: 8, background: 'var(--primary-blue)', color: '#fff' }}>Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {/* tab-specific header for Targets */}
+                {activeTab === 'targets' && (
+                    <div style={{ marginBottom: 12, background: 'var(--white)', padding: 12, borderRadius: 12 }}>
+                        <h3 style={{ margin: 0 }}>My Targets</h3>
+                        <p style={{ margin: 0, color: 'var(--text-secondary)' }}>
+                            {user && user.examTargets && user.examTargets.length ? (
+                                <ul style={{ marginTop: 8 }}>
+                                    {user.examTargets.map((t, i) => (<li key={i}>{t.exam} — {t.targetDate ? new Date(t.targetDate).toLocaleDateString() : 'No date'}</li>))}
+                                </ul>
+                            ) : 'You have not added any targets yet.'}
+                        </p>
+                    </div>
+                )}
+
                 {loading ? (
-                    <div style={{ 
+                    <div style={{
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
@@ -530,7 +823,7 @@ export default function Feed() {
                         color: 'var(--text-secondary)'
                     }}>
                         <div style={{ textAlign: 'center' }}>
-                            <div className="spinner" style={{ 
+                            <div className="spinner" style={{
                                 margin: '0 auto 16px',
                                 width: '40px',
                                 height: '40px',
@@ -540,49 +833,211 @@ export default function Feed() {
                             Loading feed...
                         </div>
                     </div>
-                ) : posts.length > 0 ? (
-                    posts.map(p => (
-                        <PostCard 
-                            key={p._id} 
-                            p={p} 
-                            onLike={like} 
-                            onComment={comment} 
-                            onStudyRequest={studyRequest} 
-                        />
-                    ))
                 ) : (
-                    <div style={{
-                        background: 'var(--white)',
-                        padding: '60px 40px',
-                        borderRadius: 'var(--radius-xl)',
-                        textAlign: 'center',
-                        boxShadow: 'var(--shadow-md)'
-                    }}>
-                        <MapPin size={64} style={{ 
-                            color: 'var(--border-medium)',
-                            marginBottom: '20px',
-                            opacity: 0.5
-                        }} />
-                        <h3 style={{ 
-                            color: 'var(--text-primary)',
-                            fontSize: '20px',
-                            fontWeight: '600',
-                            marginBottom: '8px'
-                        }}>
-                            No posts yet
-                        </h3>
-                        <p style={{ 
-                            color: 'var(--text-secondary)',
-                            fontSize: '15px',
-                            margin: 0
-                        }}>
-                            Be the first to share your study journey with the community!
-                        </p>
-                    </div>
+                    activeTab === 'groups' ? (
+                        <div style={{ display: 'flex', gap: 16 }}>
+                            <div style={{ width: groupsCollapsed ? 72 : 320, transition: 'width 180ms' }}>
+                                <div style={{ marginBottom: 12, display: 'flex', gap: 8, alignItems: 'center' }}>
+                                    {!groupsCollapsed && <button type="button" onClick={async () => { const g = await createGroup('New Group'); if (g) selectGroup(g._id); }} style={{ flex: 1, padding: 10, borderRadius: 8, background: 'var(--primary-blue)', color: '#fff', border: 'none' }}>New Group</button>}
+                                    <button type="button" onClick={() => loadGroups()} style={{ padding: 10, borderRadius: 8, border: '1px solid var(--border-light)', background: 'transparent' }}>Refresh</button>
+                                    <button type="button" onClick={() => setGroupsCollapsed(s => !s)} style={{ padding: 8, borderRadius: 8, border: '1px solid var(--border-light)', background: 'transparent' }}>
+                                        {groupsCollapsed ? <ChevronsRight size={18} /> : <ChevronsLeft size={18} />}
+                                    </button>
+                                    {!groupsCollapsed && <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                                        <select value={challengeExam} onChange={e => setChallengeExam(e.target.value)} style={{ padding: 8, borderRadius: 8 }}>
+                                            <option>JEE</option>
+                                            <option>NEET</option>
+                                            <option>UPSC</option>
+                                        </select>
+                                        <button type="button" onClick={() => setActive('challenge')} style={{ padding: 8, borderRadius: 8, border: '1px solid var(--border-light)', background: 'transparent' }}>Open Challenge</button>
+                                    </div>}
+                                </div>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                                    {groups.length > 0 ? groups.map(g => (
+                                        <div key={g._id} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                                            <button type="button" onClick={() => selectGroup(g._id)} style={{ textAlign: groupsCollapsed ? 'center' : 'left', padding: groupsCollapsed ? 8 : 10, borderRadius: 8, background: selectedGroup && selectedGroup._id === g._id ? 'rgba(138,108,255,0.08)' : 'var(--white)', border: '1px solid var(--border-light)', width: '100%' }}>{groupsCollapsed ? (g.name?.charAt(0)?.toUpperCase() || 'G') : (<><div style={{ fontWeight: 700 }}>{g.name}</div><div style={{ fontSize: 12, color: 'var(--text-secondary)' }}>{g.members?.length || 0} members</div></>)}</button>
+                                            {!groupsCollapsed && <button type="button" onClick={() => setAddMemberModal({ open: true, groupId: g._id })} style={{ padding: 8, border: 'none', background: 'transparent', cursor: 'pointer' }} title="Add member"><UserPlus size={18} /></button>}
+                                            {!groupsCollapsed && <button type="button" onClick={async () => {
+                                                if (!window.confirm('Delete this group?')) return
+                                                try {
+                                                    const token = localStorage.getItem('token')
+                                                    const res = await fetch(`http://localhost:5000/api/groups/${g._id}`, { method: 'DELETE', headers: { Authorization: `Bearer ${token}` } })
+                                                    if (res.ok) { loadGroups(); if (selectedGroup && selectedGroup._id === g._id) setSelectedGroup(null) }
+                                                    else { const d = await res.json(); alert(d.message || 'Failed') }
+                                                } catch (e) { alert('Failed') }
+                                            }} style={{ padding: 8, border: 'none', background: 'transparent', cursor: 'pointer' }} title="Delete group"><Trash size={16} /></button>}
+                                        </div>
+                                    )) : <div style={{ padding: 20, color: 'var(--text-secondary)' }}>No groups yet</div>}
+                                </div>
+                            </div>
+                            <div style={{ flex: 1 }}>
+                                {selectedGroup ? (
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                                            {renaming ? (
+                                                <>
+                                                    <input value={newGroupName} onChange={e => setNewGroupName(e.target.value)} placeholder="Group name" style={{ padding: 8, borderRadius: 8, border: '1px solid var(--border-light)', flex: 1 }} />
+                                                    <button type="button" onClick={() => renameGroup(selectedGroup._id, newGroupName)} style={{ padding: '8px 10px', borderRadius: 8, background: 'var(--primary-blue)', color: '#fff', border: 'none' }}>Save</button>
+                                                    <button type="button" onClick={() => { setRenaming(false); setNewGroupName('') }} style={{ padding: '8px 10px', borderRadius: 8, border: '1px solid var(--border-light)', background: 'transparent' }}>Cancel</button>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <h3 style={{ margin: 0, flex: 1 }}>{selectedGroup.name}</h3>
+                                                    <button type="button" onClick={() => { setRenaming(true); setNewGroupName(selectedGroup.name || '') }} style={{ padding: 8, border: 'none', background: 'transparent', cursor: 'pointer' }} title="Rename group"><Edit3 size={18} /></button>
+                                                </>
+                                            )}
+                                        </div>
+                                        <div style={{ display: 'flex', flexDirection: 'column', gap: 8, maxHeight: '60vh', overflowY: 'auto', padding: 8 }}>
+                                            {groupMessages.map((m, i) => (
+                                                <div key={i} style={{ display: 'flex', gap: 8, alignItems: 'flex-start' }}>
+                                                    <div style={{ width: 40, height: 40, borderRadius: 999, background: 'var(--off-white)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{m.author?.name?.charAt(0)?.toUpperCase()}</div>
+                                                    <div style={{ background: 'var(--white)', padding: 10, borderRadius: 8, boxShadow: 'var(--shadow-sm)' }}>
+                                                        <div style={{ fontWeight: 700 }}>{m.author?.name}</div>
+                                                        <div style={{ color: 'var(--text-secondary)' }}>{m.text}</div>
+                                                    </div>
+                                                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                                                        <button type="button" onClick={async () => {
+                                                            if (!window.confirm('Delete this message?')) return
+                                                            try {
+                                                                const token = localStorage.getItem('token')
+                                                                const res = await fetch(`http://localhost:5000/api/groups/${selectedGroup._id}/messages/${m._id}`, { method: 'DELETE', headers: { Authorization: `Bearer ${token}` } })
+                                                                if (res.ok) {
+                                                                    setGroupMessages(prev => prev.filter(x => x._id !== m._id))
+                                                                } else {
+                                                                    const d = await res.json(); alert(d.message || 'Failed')
+                                                                }
+                                                            } catch (e) { alert('Failed') }
+                                                        }} style={{ padding: 6, marginLeft: 6, border: 'none', background: 'transparent', cursor: 'pointer' }} title="Delete message"><Trash size={14} /></button>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                        {!hideSidebars && <div style={{ display: 'flex', gap: 8 }}>
+                                            <input value={groupMessageText} onChange={e => setGroupMessageText(e.target.value)} placeholder="Write a message" style={{ flex: 1, padding: 10, borderRadius: 8, border: '1px solid var(--border-light)' }} />
+                                            <button type="button" onClick={async () => { if (groupMessageText.trim()) { await sendGroupMessage(selectedGroup._id, groupMessageText); setGroupMessageText('') } }} style={{ padding: '10px 12px', borderRadius: 8, background: 'var(--primary-blue)', color: '#fff', border: 'none' }}>Send</button>
+                                        </div>}
+                                    </div>
+                                ) : (
+                                    <div style={{ padding: 20, color: 'var(--text-secondary)' }}>Select a group to open the chat</div>
+                                )}
+                            </div>
+                            {/* Challenge UI */}
+                            {activeTab === 'groups' && <div style={{ width: 420 }}>
+                                <div style={{ background: 'var(--white)', padding: 12, borderRadius: 12 }}>
+                                    <h4>Challenge</h4>
+                                    <div style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
+                                        <select value={challengeExam} onChange={e => setChallengeExam(e.target.value)} style={{ flex: 1, padding: 8 }}>
+                                            <option>JEE</option>
+                                            <option>NEET</option>
+                                            <option>UPSC</option>
+                                        </select>
+                                        {buddyOptions && buddyOptions.length > 0 ? (
+                                            <select value={challengeBuddy || ''} onChange={e => setChallengeBuddy(e.target.value)} style={{ padding: 8, flex: 1 }}>
+                                                <option value="">Select buddy</option>
+                                                {buddyOptions.map(b => (
+                                                    <option key={b._id} value={b._id}>{b.name}{b.username ? ` (${b.username})` : ''}</option>
+                                                ))}
+                                            </select>
+                                        ) : (
+                                            <input placeholder="Buddy id or username" value={challengeBuddy || ''} onChange={e => setChallengeBuddy(e.target.value)} style={{ padding: 8, flex: 1 }} />
+                                        )}
+                                    </div>
+                                    <div style={{ display: 'flex', gap: 8 }}>
+                                        <button type="button" onClick={async () => {
+                                            if (!challengeBuddy) return alert('Enter buddy id or username')
+                                            try {
+                                                // resolve username -> id by searching
+                                                const token = localStorage.getItem('token')
+                                                let uid = challengeBuddy
+                                                if (!/^[0-9a-fA-F]{24}$/.test(challengeBuddy)) {
+                                                    const res = await fetch(`http://localhost:5000/api/users/search?q=${encodeURIComponent(challengeBuddy)}`, { headers: { Authorization: `Bearer ${token}` } })
+                                                    const data = await res.json()
+                                                    if (Array.isArray(data) && data.length) uid = data[0]._id
+                                                    else return alert('Buddy not found')
+                                                }
+                                                const res2 = await fetch('http://localhost:5000/api/challenges/request', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify({ toUserId: uid, exam: challengeExam }) })
+                                                const d2 = await res2.json()
+                                                if (res2.ok) alert('Challenge request sent')
+                                                else alert(d2.message || 'Failed')
+                                            } catch (e) { alert('Failed') }
+                                        }} style={{ padding: 8, background: 'var(--primary-blue)', color: '#fff', border: 'none' }}>Send</button>
+                                        <button type="button" onClick={() => { setChallengeBuddy('') }} style={{ padding: 8, border: '1px solid var(--border-light)', background: 'transparent' }}>Clear</button>
+                                    </div>
+                                </div>
+                            </div>}
+                            {/* Add member modal */}
+                            {addMemberModal.open && (
+                                <div style={{ position: 'fixed', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.35)', zIndex: 60 }} onClick={() => setAddMemberModal({ open: false, groupId: null })}>
+                                    <div role="dialog" onClick={e => e.stopPropagation()} style={{ width: 420, background: 'var(--white)', borderRadius: 12, padding: 16, boxShadow: 'var(--shadow-lg)' }}>
+                                        <h4 style={{ marginTop: 0 }}>Add member to group</h4>
+                                        <input placeholder="Search by name, username or user id" value={memberSearchQuery} onChange={e => { setMemberSearchQuery(e.target.value); searchMember(e.target.value) }} style={{ width: '100%', padding: 8, border: '1px solid var(--border-light)', borderRadius: 8, marginBottom: 8 }} />
+                                        <div style={{ maxHeight: 240, overflowY: 'auto' }}>
+                                            {memberSearchResults.length === 0 && <div style={{ padding: 8, color: 'var(--text-secondary)' }}>No results</div>}
+                                            {memberSearchResults.map(u => (
+                                                <div key={u._id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 8, borderBottom: '1px solid var(--border-light)' }}>
+                                                    <div>
+                                                        <div style={{ fontWeight: 700 }}>{u.name} {u.username ? `@${u.username}` : ''}</div>
+                                                        <div style={{ fontSize: 12, color: 'var(--text-secondary)' }}>{u._id}</div>
+                                                    </div>
+                                                    <div>
+                                                        <button type="button" onClick={() => addMemberToGroup(addMemberModal.groupId, u._id)} style={{ padding: '6px 8px', borderRadius: 8, background: 'var(--primary-blue)', color: '#fff', border: 'none' }}>Add</button>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8, marginTop: 8 }}>
+                                            <button type="button" onClick={() => setAddMemberModal({ open: false, groupId: null })} style={{ padding: '8px 10px', borderRadius: 8, border: '1px solid var(--border-light)', background: 'transparent' }}>Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    ) : (
+                        displayedPosts.length > 0 ? (
+                            displayedPosts.map(p => (
+                                <PostCard
+                                    key={p._id}
+                                    p={p}
+                                    onLike={like}
+                                    onComment={comment}
+                                    onStudyRequest={studyRequest}
+                                />
+                            ))
+                        ) : (
+                            <div style={{
+                                background: 'var(--white)',
+                                padding: '60px 40px',
+                                borderRadius: 'var(--radius-xl)',
+                                textAlign: 'center',
+                                boxShadow: 'var(--shadow-md)'
+                            }}>
+                                <MapPin size={64} style={{
+                                    color: 'var(--border-medium)',
+                                    marginBottom: '20px',
+                                    opacity: 0.5
+                                }} />
+                                <h3 style={{
+                                    color: 'var(--text-primary)',
+                                    fontSize: '20px',
+                                    fontWeight: '600',
+                                    marginBottom: '8px'
+                                }}>
+                                    No posts yet
+                                </h3>
+                                <p style={{
+                                    color: 'var(--text-secondary)',
+                                    fontSize: '15px',
+                                    margin: 0
+                                }}>
+                                    Be the first to share your study journey with the community!
+                                </p>
+                            </div>
+                        )
+                    )
                 )}
             </main>
-            
-            <RightSidebar />
+
+            {!hideSidebars && <RightSidebar />}
         </div>
     )
 }

@@ -5,6 +5,8 @@ import { Mail, Lock, User, Eye, EyeOff, Compass, CheckCircle } from 'lucide-reac
 export default function Signup() {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
+    const [username, setUsername] = useState('')
+    const [age, setAge] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
     const [success, setSuccess] = useState(false)
@@ -37,6 +39,19 @@ export default function Signup() {
             return
         }
 
+        if (username.trim().length < 3) {
+            setError('Username must be at least 3 characters long.')
+            setLoading(false)
+            return
+        }
+
+        const ageNum = parseInt(age, 10)
+        if (isNaN(ageNum) || ageNum < 13) {
+            setError('You must be 13 or older to register.')
+            setLoading(false)
+            return
+        }
+
         if (password.length < 6) {
             setError('Password must be at least 6 characters long for security.')
             setLoading(false)
@@ -47,20 +62,20 @@ export default function Signup() {
             const res = await fetch('http://localhost:5000/api/auth/register', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, email, password })
+                body: JSON.stringify({ name, email, password, username, age })
             })
             const data = await res.json()
-            
+
             if (!res.ok) {
                 setError(getDetailedError(data.message || 'Registration failed'))
                 setLoading(false)
                 return
             }
-            
+
             // Show success animation
             setSuccess(true)
             localStorage.setItem('token', data.token)
-            
+
             // Navigate after success animation
             setTimeout(() => {
                 navigate('/profile')
@@ -79,14 +94,14 @@ export default function Signup() {
                 ) : (
                     <Compass className="auth-card-icon" size={40} />
                 )}
-                
+
                 <h2 className="title">
                     {success ? 'Welcome Aboard!' : 'Start Your Journey'}
                 </h2>
                 <p className="subtitle">
                     {success ? 'Your account has been created successfully' : 'Create an account to chart your exam preparation path'}
                 </p>
-                
+
                 {error && <div className="error">{error}</div>}
                 {success && <div className="success">Account created! Redirecting to your dashboard...</div>}
 
@@ -96,13 +111,13 @@ export default function Signup() {
                             <label htmlFor="name" className="field-label">Full Name</label>
                             <div className="field-input-wrapper">
                                 <User size={18} className="field-icon" />
-                                <input 
+                                <input
                                     id="name"
                                     type="text"
                                     placeholder="Enter your full name"
-                                    value={name} 
-                                    onChange={e => setName(e.target.value)} 
-                                    required 
+                                    value={name}
+                                    onChange={e => setName(e.target.value)}
+                                    required
                                     disabled={loading}
                                     minLength={2}
                                 />
@@ -113,14 +128,47 @@ export default function Signup() {
                             <label htmlFor="email" className="field-label">Email</label>
                             <div className="field-input-wrapper">
                                 <Mail size={18} className="field-icon" />
-                                <input 
+                                <input
                                     id="email"
                                     type="email"
                                     placeholder="Enter your email"
-                                    value={email} 
-                                    onChange={e => setEmail(e.target.value)} 
-                                    required 
+                                    value={email}
+                                    onChange={e => setEmail(e.target.value)}
+                                    required
                                     disabled={loading}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="field">
+                            <label htmlFor="username" className="field-label">Username</label>
+                            <div className="field-input-wrapper">
+                                <User size={18} className="field-icon" />
+                                <input
+                                    id="username"
+                                    type="text"
+                                    placeholder="Choose a username"
+                                    value={username}
+                                    onChange={e => setUsername(e.target.value)}
+                                    required
+                                    disabled={loading}
+                                    minLength={3}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="field">
+                            <label htmlFor="age" className="field-label">Age</label>
+                            <div className="field-input-wrapper">
+                                <input
+                                    id="age"
+                                    type="number"
+                                    placeholder="Your age"
+                                    value={age}
+                                    onChange={e => setAge(e.target.value)}
+                                    required
+                                    disabled={loading}
+                                    min={13}
                                 />
                             </div>
                         </div>
@@ -129,20 +177,20 @@ export default function Signup() {
                             <label htmlFor="password" className="field-label">Password</label>
                             <div className="field-input-wrapper">
                                 <Lock size={18} className="field-icon" />
-                                <input 
+                                <input
                                     id="password"
                                     type={show ? 'text' : 'password'}
                                     placeholder="Create a password (min. 6 characters)"
-                                    value={password} 
-                                    onChange={e => setPassword(e.target.value)} 
-                                    required 
+                                    value={password}
+                                    onChange={e => setPassword(e.target.value)}
+                                    required
                                     disabled={loading}
                                     minLength={6}
                                 />
-                                <button 
-                                    type="button" 
-                                    className="show-btn" 
-                                    onClick={() => setShow(s => !s)} 
+                                <button
+                                    type="button"
+                                    className="show-btn"
+                                    onClick={() => setShow(s => !s)}
                                     aria-label="Toggle password visibility"
                                     disabled={loading}
                                 >

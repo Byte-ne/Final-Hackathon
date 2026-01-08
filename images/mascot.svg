@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="320" height="320" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
+  <rect width="320" height="320" rx="20" fill="#fff" stroke="#e6e6e6" />
+  <g transform="translate(40,30)">
+    <circle cx="120" cy="80" r="56" fill="#F6D365" />
+    <rect x="70" y="160" width="100" height="80" rx="12" fill="#F6D365" />
+    <text x="15" y="298" font-family="Segoe UI, Roboto, Arial" font-size="20" fill="#666">Mascot (replace)</text>
+  </g>
+</svg>

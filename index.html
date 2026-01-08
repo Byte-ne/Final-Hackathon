@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Homepage</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="navbar">
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="page3.html">Past Paper Vault</a></li>
+        <li><a href="page4.html">Games</a></li>
+      </ul>
+      <a class="logo-wrap" href="#">
+        <img src="images/logo.svg" alt="Logo" class="logo">
+      </a>
+    </nav>
+  </header>
+
+  <main class="hero">
+    <div class="hero-inner">
+      <div class="mascot">
+        <!-- Replace src with your mascot image -->
+        <img src="images/mascot.svg" alt="Mascot">
+      </div>
+      <div class="motto">
+        <h1>Learn. Explore. Grow.</h1>
+        <p class="tagline">Empowering students through engaging maps and local context.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="year"></span> Vidya Setu — All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Simple script to set the current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

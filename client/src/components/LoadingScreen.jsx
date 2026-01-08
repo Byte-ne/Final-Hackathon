@@ -61,7 +61,7 @@ export default function LoadingScreen() {
             <div className="loading-content">
                 <h1 className="loading-title">
                     <Compass size={32} />
-                    Exam Compass
+                    EduWay
                 </h1>
 
                 <div className="route-container">
@@ -109,7 +109,7 @@ export default function LoadingScreen() {
                 </div>
 
                 <div className="loading-percentage">{progress}%</div>
-                <p className="loading-message">Charting your course...</p>
+                <p className="loading-message">Preparing your learning journey...</p>
             </div>
         </div>
     )

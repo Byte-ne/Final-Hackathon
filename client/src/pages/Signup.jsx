@@ -96,10 +96,10 @@ export default function Signup() {
                 )}
 
                 <h2 className="title">
-                    {success ? 'Welcome Aboard!' : 'Start Your Journey'}
+                    {success ? 'Welcome to EduWay!' : 'Join EduWay'}
                 </h2>
                 <p className="subtitle">
-                    {success ? 'Your account has been created successfully' : 'Create an account to chart your exam preparation path'}
+                    {success ? 'Your learning journey starts now' : 'Start your path to exam success with personalized AI-powered tools'}
                 </p>
 
                 {error && <div className="error">{error}</div>}

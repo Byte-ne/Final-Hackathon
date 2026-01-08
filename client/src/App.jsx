@@ -59,7 +59,7 @@ function Navigation() {
             <div className="nav-container">
                 <Link to="/" className="nav-logo">
                     <Compass size={24} />
-                    Exam Compass
+                    EduWay
                 </Link>
 
                 <div className="nav-links">
@@ -241,56 +241,83 @@ function HomePage() {
                             color: 'var(--text-primary)',
                             fontWeight: '900',
                             lineHeight: '1.1',
-                            letterSpacing: '-0.02em',
-                            background: 'linear-gradient(135deg, #4285F4 0%, #34A853 100%)',
+                            letterSpacing: '-0.03em',
+                            background: 'linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%)',
                             WebkitBackgroundClip: 'text',
                             WebkitTextFillColor: 'transparent',
-                            backgroundClip: 'text'
+                            backgroundClip: 'text',
+                            animation: 'slideInRight 0.8s ease-out'
                         }}>
-                            Learn. Compete. Succeed.
+                            Your Path to Success
                         </h1>
                         <p style={{
                             color: 'var(--text-secondary)',
                             fontSize: '20px',
                             marginBottom: '32px',
                             lineHeight: '1.7',
-                            fontWeight: '400'
+                            fontWeight: '400',
+                            animation: 'slideInRight 0.8s ease-out 0.2s both'
                         }}>
-                            Your ultimate companion for competitive exam preparation with 100+ past papers and engaging games.
+                            Master competitive exams with AI-powered study tools, 100+ past papers, and a vibrant learning community.
                         </p>
                         {!isAuthenticated && (
                             <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
                                 <Link
                                     to="/signup"
+                                    className="cta-button"
                                     style={{
-                                        padding: '14px 32px',
-                                        background: '#4285F4',
+                                        padding: '16px 36px',
+                                        background: 'var(--primary)',
                                         color: 'white',
-                                        borderRadius: '8px',
+                                        borderRadius: 'var(--radius-md)',
                                         textDecoration: 'none',
                                         fontWeight: '600',
                                         fontSize: '16px',
-                                        boxShadow: '0 4px 16px rgba(66, 133, 244, 0.3)',
-                                        transition: 'all 0.2s'
+                                        boxShadow: 'var(--shadow-lg)',
+                                        transition: 'all var(--transition-base)',
+                                        display: 'inline-block',
+                                        position: 'relative',
+                                        overflow: 'hidden'
+                                    }}
+                                    onMouseEnter={e => {
+                                        e.currentTarget.style.transform = 'translateY(-3px)';
+                                        e.currentTarget.style.boxShadow = 'var(--shadow-xl)';
+                                        e.currentTarget.style.background = 'var(--primary-hover)';
+                                    }}
+                                    onMouseLeave={e => {
+                                        e.currentTarget.style.transform = 'translateY(0)';
+                                        e.currentTarget.style.boxShadow = 'var(--shadow-lg)';
+                                        e.currentTarget.style.background = 'var(--primary)';
                                     }}
                                 >
-                                    Get Started
+                                    Get Started Free
                                 </Link>
                                 <Link
                                     to="/login"
                                     style={{
-                                        padding: '14px 32px',
+                                        padding: '16px 36px',
                                         background: 'white',
-                                        color: '#4285F4',
-                                        border: '2px solid #4285F4',
-                                        borderRadius: '8px',
+                                        color: 'var(--primary)',
+                                        border: '2px solid var(--primary)',
+                                        borderRadius: 'var(--radius-md)',
                                         textDecoration: 'none',
                                         fontWeight: '600',
                                         fontSize: '16px',
-                                        transition: 'all 0.2s'
+                                        transition: 'all var(--transition-base)',
+                                        display: 'inline-block'
+                                    }}
+                                    onMouseEnter={e => {
+                                        e.currentTarget.style.transform = 'translateY(-3px)';
+                                        e.currentTarget.style.background = 'var(--primary)';
+                                        e.currentTarget.style.color = 'white';
+                                    }}
+                                    onMouseLeave={e => {
+                                        e.currentTarget.style.transform = 'translateY(0)';
+                                        e.currentTarget.style.background = 'white';
+                                        e.currentTarget.style.color = 'var(--primary)';
                                     }}
                                 >
-                                    Learn More
+                                    Sign In
                                 </Link>
                             </div>
                         )}
@@ -320,20 +347,29 @@ function HomePage() {
                         gap: '32px'
                     }}>
                         {[
-                            { icon: '📄', title: 'Past Year Papers', desc: 'Access 100+ past papers for all major competitive exams. Practice with authentic questions and excel in your preparation.', color: '#4285F4' },
-                            { icon: '📸', title: 'Success Stories', desc: 'Share your achievements and inspire others. Post your success pictures and stories with the community.', color: '#34A853' },
-                            { icon: '🎮', title: 'Competitive Games', desc: 'Challenge your friends with educational games. Make learning fun while competing and improving together.', color: '#4285F4' },
-                            { icon: '🔍', title: 'Exam Deep Dive', desc: 'Get comprehensive insights about all competitive exams. Understand patterns, strategies, and requirements.', color: '#34A853' }
+                            { icon: '📚', title: 'Question Bank', desc: 'Access 100+ past papers for all major competitive exams. Practice with authentic questions and excel in your preparation.', color: 'var(--primary)' },
+                            { icon: '🤖', title: 'AI Study Assistant', desc: 'Get instant help with AI-powered explanations, generate practice questions, and receive personalized study recommendations.', color: 'var(--secondary)' },
+                            { icon: '🎯', title: 'Smart Challenges', desc: 'Challenge friends with timed quizzes. Make learning competitive, track progress, and improve together.', color: 'var(--accent)' },
+                            { icon: '👥', title: 'Study Community', desc: 'Connect with peers, form study groups, share resources, and celebrate achievements in a supportive environment.', color: 'var(--primary)' }
                         ].map((feature, index) => (
                             <div key={index} style={{
                                 background: 'white',
                                 padding: '32px',
-                                borderRadius: '20px',
-                                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
-                                transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                                border: '2px solid #F5F5F5',
+                                borderRadius: 'var(--radius-xl)',
+                                boxShadow: 'var(--shadow-md)',
+                                transition: 'all var(--transition-base)',
+                                border: '1px solid var(--gray-200)',
                                 position: 'relative',
-                                overflow: 'hidden'
+                                overflow: 'hidden',
+                                animation: `slideUp 0.6s ease-out ${index * 0.1}s both`
+                            }}
+                            onMouseEnter={e => {
+                                e.currentTarget.style.transform = 'translateY(-8px)';
+                                e.currentTarget.style.boxShadow = 'var(--shadow-xl)';
+                            }}
+                            onMouseLeave={e => {
+                                e.currentTarget.style.transform = 'translateY(0)';
+                                e.currentTarget.style.boxShadow = 'var(--shadow-md)';
                             }}>
                                 <div style={{
                                     position: 'absolute',
@@ -346,16 +382,20 @@ function HomePage() {
                                 <div style={{
                                     width: '72px',
                                     height: '72px',
-                                    borderRadius: '16px',
-                                    background: `linear-gradient(135deg, ${feature.color}20, ${feature.color}10)`,
-                                    color: feature.color,
+                                    borderRadius: 'var(--radius-lg)',
+                                    background: `${feature.color}15`,
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
                                     fontSize: '2.2rem',
                                     marginBottom: '24px',
-                                    boxShadow: `0 4px 12px ${feature.color}30`,
-                                    transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
+                                    transition: 'all var(--transition-spring)'
+                                }}
+                                onMouseEnter={e => {
+                                    e.currentTarget.style.transform = 'rotate(10deg) scale(1.1)';
+                                }}
+                                onMouseLeave={e => {
+                                    e.currentTarget.style.transform = 'rotate(0deg) scale(1)';
                                 }}>
                                     {feature.icon}
                                 </div>
@@ -383,7 +423,7 @@ function HomePage() {
             {/* Stats Section */}
             <section style={{
                 padding: '80px 24px',
-                background: 'linear-gradient(135deg, #4285F4, #34A853)',
+                background: 'linear-gradient(135deg, var(--primary), var(--secondary))',
                 position: 'relative'
             }}>
                 <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
@@ -456,19 +496,27 @@ function HomePage() {
                     <Link
                         to="/signup"
                         style={{
-                            padding: '16px 40px',
-                            background: 'linear-gradient(135deg, #4285F4, #34A853)',
+                            padding: '18px 48px',
+                            background: 'var(--primary)',
                             color: 'white',
-                            borderRadius: '12px',
+                            borderRadius: 'var(--radius-lg)',
                             textDecoration: 'none',
                             fontSize: '18px',
                             fontWeight: '600',
-                            boxShadow: '0 8px 32px rgba(66, 133, 244, 0.3)',
+                            boxShadow: 'var(--shadow-xl)',
                             display: 'inline-block',
-                            transition: 'all 0.2s'
+                            transition: 'all var(--transition-base)'
+                        }}
+                        onMouseEnter={e => {
+                            e.currentTarget.style.transform = 'translateY(-4px) scale(1.05)';
+                            e.currentTarget.style.boxShadow = 'var(--shadow-2xl)';
+                        }}
+                        onMouseLeave={e => {
+                            e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                            e.currentTarget.style.boxShadow = 'var(--shadow-xl)';
                         }}
                     >
-                        Start Preparing Now
+                        Start Your Journey
                     </Link>
                 </div>
             </section>

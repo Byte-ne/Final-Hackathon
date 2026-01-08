@@ -57,8 +57,8 @@ export default function Login() {
             <form className="auth-card" onSubmit={handle}>
                 <MapPin className="auth-card-icon" size={40} />
                 
-                <h2 className="title">Sign in to Continue</h2>
-                <p className="subtitle">Navigate back to your exam preparation journey</p>
+                <h2 className="title">Welcome Back</h2>
+                <p className="subtitle">Continue your learning journey with EduWay</p>
                 
                 {error && <div className="error">{error}</div>}
 

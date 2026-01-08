@@ -993,7 +993,43 @@ export default function Feed() {
                             )}
                         </div>
                     ) : (
-                        displayedPosts.length > 0 ? (
+                        activeTab === 'challenge' ? (
+                            <div style={{ padding: 12, background: 'var(--white)', borderRadius: 12 }}>
+                                <h3>Send a Challenge</h3>
+                                <div style={{ display: 'flex', gap: 8, marginTop: 8 }}>
+                                    <select value={challengeExam} onChange={e => setChallengeExam(e.target.value)} style={{ padding: 8 }}>
+                                        <option>JEE</option>
+                                        <option>NEET</option>
+                                        <option>UPSC</option>
+                                    </select>
+                                    {buddyOptions && buddyOptions.length > 0 ? (
+                                        <select value={challengeBuddy || ''} onChange={e => setChallengeBuddy(e.target.value)} style={{ padding: 8 }}>
+                                            <option value="">Select buddy</option>
+                                            {buddyOptions.map(b => (<option key={b._id} value={b._id}>{b.name}{b.username ? ` (${b.username})` : ''}</option>))}
+                                        </select>
+                                    ) : (
+                                        <input placeholder="Buddy id or username" value={challengeBuddy || ''} onChange={e => setChallengeBuddy(e.target.value)} style={{ padding: 8 }} />
+                                    )}
+                                    <button type="button" onClick={async () => {
+                                        if (!challengeBuddy) return alert('Choose a buddy')
+                                        try {
+                                            const token = localStorage.getItem('token')
+                                            let uid = challengeBuddy
+                                            if (!/^[0-9a-fA-F]{24}$/.test(challengeBuddy)) {
+                                                const res = await fetch(`http://localhost:5000/api/users/search?q=${encodeURIComponent(challengeBuddy)}`, { headers: { Authorization: `Bearer ${token}` } })
+                                                const data = await res.json()
+                                                if (Array.isArray(data) && data.length) uid = data[0]._id
+                                                else return alert('Buddy not found')
+                                            }
+                                            const res2 = await fetch('http://localhost:5000/api/challenges/request', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify({ toUserId: uid, exam: challengeExam }) })
+                                            const d2 = await res2.json()
+                                            if (res2.ok) alert('Challenge request sent')
+                                            else alert(d2.message || 'Failed')
+                                        } catch (e) { alert('Failed') }
+                                    }} style={{ padding: 8, background: 'var(--primary-blue)', color: '#fff', border: 'none' }}>Send</button>
+                                </div>
+                            </div>
+                        ) : displayedPosts.length > 0 ? (
                             displayedPosts.map(p => (
                                 <PostCard
                                     key={p._id}

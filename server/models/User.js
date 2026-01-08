@@ -14,6 +14,9 @@ const UserSchema = new mongoose.Schema({
     notifications: [{ type: { type: String }, text: String, from: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, read: { type: Boolean, default: false }, createdAt: { type: Date, default: Date.now } }],
     examTargets: [{ exam: String, targetDate: Date, notes: String }],
     milestones: [{ title: String, description: String, date: Date }],
+    // Password reset fields
+    resetCode: { type: String },
+    resetCodeExpires: { type: Date },
     createdAt: { type: Date, default: Date.now }
 })
 

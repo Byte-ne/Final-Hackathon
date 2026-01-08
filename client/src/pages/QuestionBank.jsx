@@ -3,9 +3,6 @@ import { BookOpen, FileText, Download, ExternalLink, Search, Calendar, Award } f
 
 export default function QuestionBank() {
     const [activeExam, setActiveExam] = useState('upsc')
-    const [showPdfModal, setShowPdfModal] = useState(false)
-    const [pdfUrl, setPdfUrl] = useState('')
-    const [searchQuery, setSearchQuery] = useState('')
 
     const examData = {
         upsc: {
@@ -16,72 +13,62 @@ export default function QuestionBank() {
             papers: [
                 {
                     year: "2024", links: [
-                        { name: "CSE Prelims 2024 GS Paper I", url: "https://www.upsc.gov.in/sites/default/files/QuestionPaper2024/CSP2024-GS-Paper-I-English.pdf" },
-                        { name: "CSE Prelims 2024 GS Paper II (CSAT)", url: "https://www.upsc.gov.in/sites/default/files/QuestionPaper2024/CSP2024-GS-Paper-II-English.pdf" },
-                        { name: "CSE Mains 2024 General Studies Paper I", url: "https://www.upsc.gov.in/sites/default/files/QuestionPaper2024/CM2024-GS-Paper-I-English.pdf" }
+                        { name: "CSE Prelims 2024 Papers", url: "https://www.upsc.gov.in/examinations/civil-services-examination-preliminary" },
+                        { name: "CSE Mains 2024 Papers", url: "https://www.upsc.gov.in/examinations/civil-services-examination-mains" }
                     ]
                 },
                 {
                     year: "2023", links: [
-                        { name: "CSE Prelims 2023 GS Paper I", url: "https://www.upsc.gov.in/sites/default/files/QuestionPaper2023/CSP2023-GS-Paper-I-English.pdf" },
-                        { name: "CSE Prelims 2023 GS Paper II (CSAT)", url: "https://www.upsc.gov.in/sites/default/files/QuestionPaper2023/CSP2023-GS-Paper-II-English.pdf" },
-                        { name: "CSE Mains 2023 General Studies Paper I", url: "https://www.upsc.gov.in/sites/default/files/QuestionPaper2023/CM2023-GS-Paper-I-English.pdf" }
+                        { name: "CSE Prelims 2023 Papers", url: "https://www.upsc.gov.in/examinations/civil-services-examination-preliminary" },
+                        { name: "CSE Mains 2023 Papers", url: "https://www.upsc.gov.in/examinations/civil-services-examination-mains" }
                     ]
                 },
                 {
                     year: "2022", links: [
-                        { name: "CSE Prelims 2022 GS Paper I", url: "https://www.upsc.gov.in/sites/default/files/QuestionPaper2022/CSP2022-GS-Paper-I-English.pdf" },
-                        { name: "CSE Prelims 2022 GS Paper II (CSAT)", url: "https://www.upsc.gov.in/sites/default/files/QuestionPaper2022/CSP2022-GS-Paper-II-English.pdf" },
-                        { name: "CSE Mains 2022 General Studies Paper I", url: "https://www.upsc.gov.in/sites/default/files/QuestionPaper2022/CM2022-GS-Paper-I-English.pdf" }
+                        { name: "CSE Prelims 2022 Papers", url: "https://www.upsc.gov.in/examinations/civil-services-examination-preliminary" },
+                        { name: "CSE Mains 2022 Papers", url: "https://www.upsc.gov.in/examinations/civil-services-examination-mains" }
                     ]
                 },
                 {
                     year: "2021", links: [
-                        { name: "CSE Prelims 2021 GS Paper I", url: "https://www.upsc.gov.in/sites/default/files/QuestionPaper2021/CSP2021-GS-Paper-I-English.pdf" },
-                        { name: "CSE Prelims 2021 GS Paper II (CSAT)", url: "https://www.upsc.gov.in/sites/default/files/QuestionPaper2021/CSP2021-GS-Paper-II-English.pdf" },
-                        { name: "CSE Mains 2021 General Studies Paper I", url: "https://www.upsc.gov.in/sites/default/files/QuestionPaper2021/CM2021-GS-Paper-I-English.pdf" }
+                        { name: "CSE Prelims 2021 Papers", url: "https://www.upsc.gov.in/examinations/civil-services-examination-preliminary" },
+                        { name: "CSE Mains 2021 Papers", url: "https://www.upsc.gov.in/examinations/civil-services-examination-mains" }
                     ]
                 },
                 {
                     year: "2020", links: [
-                        { name: "CSE Prelims 2020 GS Paper I", url: "https://www.upsc.gov.in/sites/default/files/QuestionPaper2020/CSP2020-GS-Paper-I-English.pdf" },
-                        { name: "CSE Prelims 2020 GS Paper II (CSAT)", url: "https://www.upsc.gov.in/sites/default/files/QuestionPaper2020/CSP2020-GS-Paper-II-English.pdf" },
-                        { name: "CSE Mains 2020 General Studies Paper I", url: "https://www.upsc.gov.in/sites/default/files/QuestionPaper2020/CM2020-GS-Paper-I-English.pdf" }
+                        { name: "CSE Prelims 2020 Papers", url: "https://www.upsc.gov.in/examinations/civil-services-examination-preliminary" },
+                        { name: "CSE Mains 2020 Papers", url: "https://www.upsc.gov.in/examinations/civil-services-examination-mains" }
                     ]
                 },
                 {
                     year: "2019", links: [
-                        { name: "CSE Prelims 2019 GS Paper I", url: "https://www.upsc.gov.in/sites/default/files/QuestionPaper2019/CSP2019-GS-Paper-I-English.pdf" },
-                        { name: "CSE Prelims 2019 GS Paper II (CSAT)", url: "https://www.upsc.gov.in/sites/default/files/QuestionPaper2019/CSP2019-GS-Paper-II-English.pdf" },
-                        { name: "CSE Mains 2019 General Studies Paper I", url: "https://www.upsc.gov.in/sites/default/files/QuestionPaper2019/CM2019-GS-Paper-I-English.pdf" }
+                        { name: "CSE Prelims 2019 Papers", url: "https://www.upsc.gov.in/examinations/civil-services-examination-preliminary" },
+                        { name: "CSE Mains 2019 Papers", url: "https://www.upsc.gov.in/examinations/civil-services-examination-mains" }
                     ]
                 },
                 {
                     year: "2018", links: [
-                        { name: "CSE Prelims 2018 GS Paper I", url: "https://www.upsc.gov.in/sites/default/files/QuestionPaper2018/CSP2018-GS-Paper-I-English.pdf" },
-                        { name: "CSE Prelims 2018 GS Paper II (CSAT)", url: "https://www.upsc.gov.in/sites/default/files/QuestionPaper2018/CSP2018-GS-Paper-II-English.pdf" },
-                        { name: "CSE Mains 2018 General Studies Paper I", url: "https://www.upsc.gov.in/sites/default/files/QuestionPaper2018/CM2018-GS-Paper-I-English.pdf" }
+                        { name: "CSE Prelims 2018 Papers", url: "https://www.upsc.gov.in/examinations/civil-services-examination-preliminary" },
+                        { name: "CSE Mains 2018 Papers", url: "https://www.upsc.gov.in/examinations/civil-services-examination-mains" }
                     ]
                 },
                 {
                     year: "2017", links: [
-                        { name: "CSE Prelims 2017 GS Paper I", url: "https://www.upsc.gov.in/sites/default/files/QuestionPaper2017/CSP2017-GS-Paper-I-English.pdf" },
-                        { name: "CSE Prelims 2017 GS Paper II (CSAT)", url: "https://www.upsc.gov.in/sites/default/files/QuestionPaper2017/CSP2017-GS-Paper-II-English.pdf" },
-                        { name: "CSE Mains 2017 General Studies Paper I", url: "https://www.upsc.gov.in/sites/default/files/QuestionPaper2017/CM2017-GS-Paper-I-English.pdf" }
+                        { name: "CSE Prelims 2017 Papers", url: "https://www.upsc.gov.in/examinations/civil-services-examination-preliminary" },
+                        { name: "CSE Mains 2017 Papers", url: "https://www.upsc.gov.in/examinations/civil-services-examination-mains" }
                     ]
                 },
                 {
                     year: "2016", links: [
-                        { name: "CSE Prelims 2016 GS Paper I", url: "https://www.upsc.gov.in/sites/default/files/QuestionPaper2016/CSP2016-GS-Paper-I-English.pdf" },
-                        { name: "CSE Prelims 2016 GS Paper II (CSAT)", url: "https://www.upsc.gov.in/sites/default/files/QuestionPaper2016/CSP2016-GS-Paper-II-English.pdf" },
-                        { name: "CSE Mains 2016 General Studies Paper I", url: "https://www.upsc.gov.in/sites/default/files/QuestionPaper2016/CM2016-GS-Paper-I-English.pdf" }
+                        { name: "CSE Prelims 2016 Papers", url: "https://www.upsc.gov.in/examinations/civil-services-examination-preliminary" },
+                        { name: "CSE Mains 2016 Papers", url: "https://www.upsc.gov.in/examinations/civil-services-examination-mains" }
                     ]
                 },
                 {
                     year: "2015", links: [
-                        { name: "CSE Prelims 2015 GS Paper I", url: "https://www.upsc.gov.in/sites/default/files/QuestionPaper2015/CSP2015-GS-Paper-I-English.pdf" },
-                        { name: "CSE Prelims 2015 GS Paper II (CSAT)", url: "https://www.upsc.gov.in/sites/default/files/QuestionPaper2015/CSP2015-GS-Paper-II-English.pdf" },
-                        { name: "CSE Mains 2015 General Studies Paper I", url: "https://www.upsc.gov.in/sites/default/files/QuestionPaper2015/CM2015-GS-Paper-I-English.pdf" }
+                        { name: "CSE Prelims 2015 Papers", url: "https://www.upsc.gov.in/examinations/civil-services-examination-preliminary" },
+                        { name: "CSE Mains 2015 Papers", url: "https://www.upsc.gov.in/examinations/civil-services-examination-mains" }
                     ]
                 }
             ]
@@ -94,72 +81,52 @@ export default function QuestionBank() {
             papers: [
                 {
                     year: "2024", links: [
-                        { name: "NEET UG 2024 Question Paper", url: "https://neet.nta.nic.in/Admin/getFile?file=QuestionPaper_NEET(UG)_2024.pdf" },
-                        { name: "NEET UG 2024 Answer Key", url: "https://neet.nta.nic.in/Admin/getFile?file=AnswerKey_NEET(UG)_2024.pdf" },
-                        { name: "NEET UG 2024 Solutions", url: "https://neet.nta.nic.in/Admin/getFile?file=Solutions_NEET(UG)_2024.pdf" }
+                        { name: "NEET UG 2024 Papers", url: "https://neet.nta.nic.in/StudentPanel/Result/NeetUg2024" }
                     ]
                 },
                 {
                     year: "2023", links: [
-                        { name: "NEET UG 2023 Question Paper", url: "https://neet.nta.nic.in/Admin/getFile?file=QuestionPaper_NEET(UG)_2023.pdf" },
-                        { name: "NEET UG 2023 Answer Key", url: "https://neet.nta.nic.in/Admin/getFile?file=AnswerKey_NEET(UG)_2023.pdf" },
-                        { name: "NEET UG 2023 Solutions", url: "https://neet.nta.nic.in/Admin/getFile?file=Solutions_NEET(UG)_2023.pdf" }
+                        { name: "NEET UG 2023 Papers", url: "https://neet.nta.nic.in/StudentPanel/Result/NeetUg2023" }
                     ]
                 },
                 {
                     year: "2022", links: [
-                        { name: "NEET UG 2022 Question Paper", url: "https://neet.nta.nic.in/Admin/getFile?file=QuestionPaper_NEET(UG)_2022.pdf" },
-                        { name: "NEET UG 2022 Answer Key", url: "https://neet.nta.nic.in/Admin/getFile?file=AnswerKey_NEET(UG)_2022.pdf" },
-                        { name: "NEET UG 2022 Solutions", url: "https://neet.nta.nic.in/Admin/getFile?file=Solutions_NEET(UG)_2022.pdf" }
+                        { name: "NEET UG 2022 Papers", url: "https://neet.nta.nic.in/StudentPanel/Result/NeetUg2022" }
                     ]
                 },
                 {
                     year: "2021", links: [
-                        { name: "NEET UG 2021 Question Paper", url: "https://neet.nta.nic.in/Admin/getFile?file=QuestionPaper_NEET(UG)_2021.pdf" },
-                        { name: "NEET UG 2021 Answer Key", url: "https://neet.nta.nic.in/Admin/getFile?file=AnswerKey_NEET(UG)_2021.pdf" },
-                        { name: "NEET UG 2021 Solutions", url: "https://neet.nta.nic.in/Admin/getFile?file=Solutions_NEET(UG)_2021.pdf" }
+                        { name: "NEET UG 2021 Papers", url: "https://neet.nta.nic.in/StudentPanel/Result/NeetUg2021" }
                     ]
                 },
                 {
                     year: "2020", links: [
-                        { name: "NEET UG 2020 Question Paper", url: "https://neet.nta.nic.in/Admin/getFile?file=QuestionPaper_NEET(UG)_2020.pdf" },
-                        { name: "NEET UG 2020 Answer Key", url: "https://neet.nta.nic.in/Admin/getFile?file=AnswerKey_NEET(UG)_2020.pdf" },
-                        { name: "NEET UG 2020 Solutions", url: "https://neet.nta.nic.in/Admin/getFile?file=Solutions_NEET(UG)_2020.pdf" }
+                        { name: "NEET UG 2020 Papers", url: "https://neet.nta.nic.in/StudentPanel/Result/NeetUg2020" }
                     ]
                 },
                 {
                     year: "2019", links: [
-                        { name: "NEET UG 2019 Question Paper", url: "https://neet.nta.nic.in/Admin/getFile?file=QuestionPaper_NEET(UG)_2019.pdf" },
-                        { name: "NEET UG 2019 Answer Key", url: "https://neet.nta.nic.in/Admin/getFile?file=AnswerKey_NEET(UG)_2019.pdf" },
-                        { name: "NEET UG 2019 Solutions", url: "https://neet.nta.nic.in/Admin/getFile?file=Solutions_NEET(UG)_2019.pdf" }
+                        { name: "NEET UG 2019 Papers", url: "https://neet.nta.nic.in/StudentPanel/Result/NeetUg2019" }
                     ]
                 },
                 {
                     year: "2018", links: [
-                        { name: "NEET UG 2018 Question Paper", url: "https://neet.nta.nic.in/Admin/getFile?file=QuestionPaper_NEET(UG)_2018.pdf" },
-                        { name: "NEET UG 2018 Answer Key", url: "https://neet.nta.nic.in/Admin/getFile?file=AnswerKey_NEET(UG)_2018.pdf" },
-                        { name: "NEET UG 2018 Solutions", url: "https://neet.nta.nic.in/Admin/getFile?file=Solutions_NEET(UG)_2018.pdf" }
+                        { name: "NEET UG 2018 Papers", url: "https://neet.nta.nic.in/StudentPanel/Result/NeetUg2018" }
                     ]
                 },
                 {
                     year: "2017", links: [
-                        { name: "NEET UG 2017 Question Paper", url: "https://neet.nta.nic.in/Admin/getFile?file=QuestionPaper_NEET(UG)_2017.pdf" },
-                        { name: "NEET UG 2017 Answer Key", url: "https://neet.nta.nic.in/Admin/getFile?file=AnswerKey_NEET(UG)_2017.pdf" },
-                        { name: "NEET UG 2017 Solutions", url: "https://neet.nta.nic.in/Admin/getFile?file=Solutions_NEET(UG)_2017.pdf" }
+                        { name: "NEET UG 2017 Papers", url: "https://neet.nta.nic.in/StudentPanel/Result/NeetUg2017" }
                     ]
                 },
                 {
                     year: "2016", links: [
-                        { name: "NEET UG 2016 Question Paper", url: "https://neet.nta.nic.in/Admin/getFile?file=QuestionPaper_NEET(UG)_2016.pdf" },
-                        { name: "NEET UG 2016 Answer Key", url: "https://neet.nta.nic.in/Admin/getFile?file=AnswerKey_NEET(UG)_2016.pdf" },
-                        { name: "NEET UG 2016 Solutions", url: "https://neet.nta.nic.in/Admin/getFile?file=Solutions_NEET(UG)_2016.pdf" }
+                        { name: "NEET UG 2016 Papers", url: "https://neet.nta.nic.in/StudentPanel/Result/NeetUg2016" }
                     ]
                 },
                 {
                     year: "2015", links: [
-                        { name: "NEET UG 2015 Question Paper", url: "https://neet.nta.nic.in/Admin/getFile?file=QuestionPaper_NEET(UG)_2015.pdf" },
-                        { name: "NEET UG 2015 Answer Key", url: "https://neet.nta.nic.in/Admin/getFile?file=AnswerKey_NEET(UG)_2015.pdf" },
-                        { name: "NEET UG 2015 Solutions", url: "https://neet.nta.nic.in/Admin/getFile?file=Solutions_NEET(UG)_2015.pdf" }
+                        { name: "NEET UG 2015 Papers", url: "https://neet.nta.nic.in/StudentPanel/Result/NeetUg2015" }
                     ]
                 }
             ]
@@ -172,72 +139,52 @@ export default function QuestionBank() {
             papers: [
                 {
                     year: "2024", links: [
-                        { name: "JEE Main 2024 Session 1 (January)", url: "https://jeemain.nta.nic.in/Admin/getFile?file=JEE(Main)2024_Session1_QuestionPaper.pdf" },
-                        { name: "JEE Main 2024 Session 2 (April)", url: "https://jeemain.nta.nic.in/Admin/getFile?file=JEE(Main)2024_Session2_QuestionPaper.pdf" },
-                        { name: "JEE Main 2024 Answer Keys", url: "https://jeemain.nta.nic.in/Admin/getFile?file=JEE(Main)2024_AnswerKeys.pdf" }
+                        { name: "JEE Main 2024 Papers", url: "https://jeemain.nta.nic.in/" }
                     ]
                 },
                 {
                     year: "2023", links: [
-                        { name: "JEE Main 2023 Session 1 (January)", url: "https://jeemain.nta.nic.in/Admin/getFile?file=JEE(Main)2023_Session1_QuestionPaper.pdf" },
-                        { name: "JEE Main 2023 Session 2 (April)", url: "https://jeemain.nta.nic.in/Admin/getFile?file=JEE(Main)2023_Session2_QuestionPaper.pdf" },
-                        { name: "JEE Main 2023 Answer Keys", url: "https://jeemain.nta.nic.in/Admin/getFile?file=JEE(Main)2023_AnswerKeys.pdf" }
+                        { name: "JEE Main 2023 Papers", url: "https://jeemain.nta.nic.in/" }
                     ]
                 },
                 {
                     year: "2022", links: [
-                        { name: "JEE Main 2022 Session 1 (June)", url: "https://jeemain.nta.nic.in/Admin/getFile?file=JEE(Main)2022_Session1_QuestionPaper.pdf" },
-                        { name: "JEE Main 2022 Session 2 (July)", url: "https://jeemain.nta.nic.in/Admin/getFile?file=JEE(Main)2022_Session2_QuestionPaper.pdf" },
-                        { name: "JEE Main 2022 Answer Keys", url: "https://jeemain.nta.nic.in/Admin/getFile?file=JEE(Main)2022_AnswerKeys.pdf" }
+                        { name: "JEE Main 2022 Papers", url: "https://jeemain.nta.nic.in/" }
                     ]
                 },
                 {
                     year: "2021", links: [
-                        { name: "JEE Main 2021 Session 1 (February)", url: "https://jeemain.nta.nic.in/Admin/getFile?file=JEE(Main)2021_Session1_QuestionPaper.pdf" },
-                        { name: "JEE Main 2021 Session 2 (March)", url: "https://jeemain.nta.nic.in/Admin/getFile?file=JEE(Main)2021_Session2_QuestionPaper.pdf" },
-                        { name: "JEE Main 2021 Answer Keys", url: "https://jeemain.nta.nic.in/Admin/getFile?file=JEE(Main)2021_AnswerKeys.pdf" }
+                        { name: "JEE Main 2021 Papers", url: "https://jeemain.nta.nic.in/" }
                     ]
                 },
                 {
                     year: "2020", links: [
-                        { name: "JEE Main 2020 September", url: "https://jeemain.nta.nic.in/Admin/getFile?file=JEE(Main)2020_September_QuestionPaper.pdf" },
-                        { name: "JEE Main 2020 January", url: "https://jeemain.nta.nic.in/Admin/getFile?file=JEE(Main)2020_January_QuestionPaper.pdf" },
-                        { name: "JEE Main 2020 Answer Keys", url: "https://jeemain.nta.nic.in/Admin/getFile?file=JEE(Main)2020_AnswerKeys.pdf" }
+                        { name: "JEE Main 2020 Papers", url: "https://jeemain.nta.nic.in/" }
                     ]
                 },
                 {
                     year: "2019", links: [
-                        { name: "JEE Main 2019 January", url: "https://jeemain.nta.nic.in/Admin/getFile?file=JEE(Main)2019_January_QuestionPaper.pdf" },
-                        { name: "JEE Main 2019 April", url: "https://jeemain.nta.nic.in/Admin/getFile?file=JEE(Main)2019_April_QuestionPaper.pdf" },
-                        { name: "JEE Main 2019 Answer Keys", url: "https://jeemain.nta.nic.in/Admin/getFile?file=JEE(Main)2019_AnswerKeys.pdf" }
+                        { name: "JEE Main 2019 Papers", url: "https://jeemain.nta.nic.in/" }
                     ]
                 },
                 {
                     year: "2018", links: [
-                        { name: "JEE Main 2018 Online", url: "https://jeemain.nta.nic.in/Admin/getFile?file=JEE(Main)2018_Online_QuestionPaper.pdf" },
-                        { name: "JEE Main 2018 Offline", url: "https://jeemain.nta.nic.in/Admin/getFile?file=JEE(Main)2018_Offline_QuestionPaper.pdf" },
-                        { name: "JEE Main 2018 Answer Keys", url: "https://jeemain.nta.nic.in/Admin/getFile?file=JEE(Main)2018_AnswerKeys.pdf" }
+                        { name: "JEE Main 2018 Papers", url: "https://jeemain.nta.nic.in/" }
                     ]
                 },
                 {
                     year: "2017", links: [
-                        { name: "JEE Main 2017 Online", url: "https://jeemain.nta.nic.in/Admin/getFile?file=JEE(Main)2017_Online_QuestionPaper.pdf" },
-                        { name: "JEE Main 2017 Offline", url: "https://jeemain.nta.nic.in/Admin/getFile?file=JEE(Main)2017_Offline_QuestionPaper.pdf" },
-                        { name: "JEE Main 2017 Answer Keys", url: "https://jeemain.nta.nic.in/Admin/getFile?file=JEE(Main)2017_AnswerKeys.pdf" }
+                        { name: "JEE Main 2017 Papers", url: "https://jeemain.nta.nic.in/" }
                     ]
                 },
                 {
                     year: "2016", links: [
-                        { name: "JEE Main 2016 Online", url: "https://jeemain.nta.nic.in/Admin/getFile?file=JEE(Main)2016_Online_QuestionPaper.pdf" },
-                        { name: "JEE Main 2016 Offline", url: "https://jeemain.nta.nic.in/Admin/getFile?file=JEE(Main)2016_Offline_QuestionPaper.pdf" },
-                        { name: "JEE Main 2016 Answer Keys", url: "https://jeemain.nta.nic.in/Admin/getFile?file=JEE(Main)2016_AnswerKeys.pdf" }
+                        { name: "JEE Main 2016 Papers", url: "https://jeemain.nta.nic.in/" }
                     ]
                 },
                 {
                     year: "2015", links: [
-                        { name: "JEE Main 2015 Online", url: "https://jeemain.nta.nic.in/Admin/getFile?file=JEE(Main)2015_Online_QuestionPaper.pdf" },
-                        { name: "JEE Main 2015 Offline", url: "https://jeemain.nta.nic.in/Admin/getFile?file=JEE(Main)2015_Offline_QuestionPaper.pdf" },
-                        { name: "JEE Main 2015 Answer Keys", url: "https://jeemain.nta.nic.in/Admin/getFile?file=JEE(Main)2015_AnswerKeys.pdf" }
+                        { name: "JEE Main 2015 Papers", url: "https://jeemain.nta.nic.in/" }
                     ]
                 }
             ]
@@ -250,97 +197,59 @@ export default function QuestionBank() {
             papers: [
                 {
                     year: "2024", links: [
-                        { name: "GATE 2024 CS", url: "https://www.gate.iitb.ac.in/PYQs/GATE_2024_CS.pdf" },
-                        { name: "GATE 2024 ME", url: "https://www.gate.iitb.ac.in/PYQs/GATE_2024_ME.pdf" },
-                        { name: "GATE 2024 EE", url: "https://www.gate.iitb.ac.in/PYQs/GATE_2024_EE.pdf" },
-                        { name: "GATE 2024 CE", url: "https://www.gate.iitb.ac.in/PYQs/GATE_2024_CE.pdf" }
+                        { name: "GATE 2024 Papers", url: "https://www.gate.iitb.ac.in/" }
                     ]
                 },
                 {
                     year: "2023", links: [
-                        { name: "GATE 2023 CS", url: "https://www.gate.iitb.ac.in/PYQs/GATE_2023_CS.pdf" },
-                        { name: "GATE 2023 ME", url: "https://www.gate.iitb.ac.in/PYQs/GATE_2023_ME.pdf" },
-                        { name: "GATE 2023 EE", url: "https://www.gate.iitb.ac.in/PYQs/GATE_2023_EE.pdf" },
-                        { name: "GATE 2023 CE", url: "https://www.gate.iitb.ac.in/PYQs/GATE_2023_CE.pdf" }
+                        { name: "GATE 2023 Papers", url: "https://www.gate.iitb.ac.in/" }
                     ]
                 },
                 {
                     year: "2022", links: [
-                        { name: "GATE 2022 CS", url: "https://www.gate.iitb.ac.in/PYQs/GATE_2022_CS.pdf" },
-                        { name: "GATE 2022 ME", url: "https://www.gate.iitb.ac.in/PYQs/GATE_2022_ME.pdf" },
-                        { name: "GATE 2022 EE", url: "https://www.gate.iitb.ac.in/PYQs/GATE_2022_EE.pdf" },
-                        { name: "GATE 2022 CE", url: "https://www.gate.iitb.ac.in/PYQs/GATE_2022_CE.pdf" }
+                        { name: "GATE 2022 Papers", url: "https://www.gate.iitb.ac.in/" }
                     ]
                 },
                 {
                     year: "2021", links: [
-                        { name: "GATE 2021 CS", url: "https://www.gate.iitb.ac.in/PYQs/GATE_2021_CS.pdf" },
-                        { name: "GATE 2021 ME", url: "https://www.gate.iitb.ac.in/PYQs/GATE_2021_ME.pdf" },
-                        { name: "GATE 2021 EE", url: "https://www.gate.iitb.ac.in/PYQs/GATE_2021_EE.pdf" },
-                        { name: "GATE 2021 CE", url: "https://www.gate.iitb.ac.in/PYQs/GATE_2021_CE.pdf" }
+                        { name: "GATE 2021 Papers", url: "https://www.gate.iitb.ac.in/" }
                     ]
                 },
                 {
                     year: "2020", links: [
-                        { name: "GATE 2020 CS", url: "https://www.gate.iitb.ac.in/PYQs/GATE_2020_CS.pdf" },
-                        { name: "GATE 2020 ME", url: "https://www.gate.iitb.ac.in/PYQs/GATE_2020_ME.pdf" },
-                        { name: "GATE 2020 EE", url: "https://www.gate.iitb.ac.in/PYQs/GATE_2020_EE.pdf" },
-                        { name: "GATE 2020 CE", url: "https://www.gate.iitb.ac.in/PYQs/GATE_2020_CE.pdf" }
+                        { name: "GATE 2020 Papers", url: "https://www.gate.iitb.ac.in/" }
                     ]
                 },
                 {
                     year: "2019", links: [
-                        { name: "GATE 2019 CS", url: "https://www.gate.iitb.ac.in/PYQs/GATE_2019_CS.pdf" },
-                        { name: "GATE 2019 ME", url: "https://www.gate.iitb.ac.in/PYQs/GATE_2019_ME.pdf" },
-                        { name: "GATE 2019 EE", url: "https://www.gate.iitb.ac.in/PYQs/GATE_2019_EE.pdf" },
-                        { name: "GATE 2019 CE", url: "https://www.gate.iitb.ac.in/PYQs/GATE_2019_CE.pdf" }
+                        { name: "GATE 2019 Papers", url: "https://www.gate.iitb.ac.in/" }
                     ]
                 },
                 {
                     year: "2018", links: [
-                        { name: "GATE 2018 CS", url: "https://www.gate.iitb.ac.in/PYQs/GATE_2018_CS.pdf" },
-                        { name: "GATE 2018 ME", url: "https://www.gate.iitb.ac.in/PYQs/GATE_2018_ME.pdf" },
-                        { name: "GATE 2018 EE", url: "https://www.gate.iitb.ac.in/PYQs/GATE_2018_EE.pdf" },
-                        { name: "GATE 2018 CE", url: "https://www.gate.iitb.ac.in/PYQs/GATE_2018_CE.pdf" }
+                        { name: "GATE 2018 Papers", url: "https://www.gate.iitb.ac.in/" }
                     ]
                 },
                 {
                     year: "2017", links: [
-                        { name: "GATE 2017 CS", url: "https://www.gate.iitb.ac.in/PYQs/GATE_2017_CS.pdf" },
-                        { name: "GATE 2017 ME", url: "https://www.gate.iitb.ac.in/PYQs/GATE_2017_ME.pdf" },
-                        { name: "GATE 2017 EE", url: "https://www.gate.iitb.ac.in/PYQs/GATE_2017_EE.pdf" },
-                        { name: "GATE 2017 CE", url: "https://www.gate.iitb.ac.in/PYQs/GATE_2017_CE.pdf" }
+                        { name: "GATE 2017 Papers", url: "https://www.gate.iitb.ac.in/" }
                     ]
                 },
                 {
                     year: "2016", links: [
-                        { name: "GATE 2016 CS", url: "https://www.gate.iitb.ac.in/PYQs/GATE_2016_CS.pdf" },
-                        { name: "GATE 2016 ME", url: "https://www.gate.iitb.ac.in/PYQs/GATE_2016_ME.pdf" },
-                        { name: "GATE 2016 EE", url: "https://www.gate.iitb.ac.in/PYQs/GATE_2016_EE.pdf" },
-                        { name: "GATE 2016 CE", url: "https://www.gate.iitb.ac.in/PYQs/GATE_2016_CE.pdf" }
+                        { name: "GATE 2016 Papers", url: "https://www.gate.iitb.ac.in/" }
                     ]
                 },
                 {
                     year: "2015", links: [
-                        { name: "GATE 2015 CS", url: "https://www.gate.iitb.ac.in/PYQs/GATE_2015_CS.pdf" },
-                        { name: "GATE 2015 ME", url: "https://www.gate.iitb.ac.in/PYQs/GATE_2015_ME.pdf" },
-                        { name: "GATE 2015 EE", url: "https://www.gate.iitb.ac.in/PYQs/GATE_2015_EE.pdf" },
-                        { name: "GATE 2015 CE", url: "https://www.gate.iitb.ac.in/PYQs/GATE_2015_CE.pdf" }
+                        { name: "GATE 2015 Papers", url: "https://www.gate.iitb.ac.in/" }
                     ]
                 }
             ]
         }
     }
 
-    const openPdfModal = (url) => {
-        setPdfUrl(url)
-        setShowPdfModal(true)
-    }
 
-    const closePdfModal = () => {
-        setShowPdfModal(false)
-        setPdfUrl('')
-    }
 
     return (
         <div style={{
@@ -544,9 +453,11 @@ export default function QuestionBank() {
                             gap: 'var(--space-3)'
                         }}>
                             {paper.links.map((link, linkIndex) => (
-                                <button
+                                <a
                                     key={linkIndex}
-                                    onClick={() => openPdfModal(link.url)}
+                                    href={link.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                     style={{
                                         display: 'flex',
                                         alignItems: 'center',
@@ -557,6 +468,7 @@ export default function QuestionBank() {
                                         borderRadius: 'var(--radius-lg)',
                                         cursor: 'pointer',
                                         transition: 'all var(--transition-base)',
+                                        textDecoration: 'none',
                                         textAlign: 'left',
                                         width: '100%',
                                         fontFamily: 'inherit'
@@ -581,12 +493,12 @@ export default function QuestionBank() {
                                                 color: 'var(--text-secondary)',
                                                 fontWeight: '500'
                                             }}>
-                                                PDF Document
+                                                Official Website
                                             </div>
                                         </div>
                                     </div>
-                                    <Download size={20} style={{ color: 'var(--text-tertiary)' }} />
-                                </button>
+                                    <ExternalLink size={20} style={{ color: 'var(--text-tertiary)' }} />
+                                </a>
                             ))}
                         </div>
                     </div>
@@ -666,85 +578,7 @@ export default function QuestionBank() {
                 </div>
             </div>
 
-            {/* PDF Modal */}
-            {showPdfModal && (
-                <div style={{
-                    position: 'fixed',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    background: 'rgba(0, 0, 0, 0.8)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    zIndex: 10000,
-                    backdropFilter: 'blur(4px)'
-                }}>
-                    <div style={{
-                        padding: '16px 24px',
-                        background: 'var(--white)',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        borderBottom: '1px solid var(--border-light)'
-                    }}>
-                        <div style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '12px'
-                        }}>
-                            <FileText size={24} style={{ color: examData[activeExam].color }} />
-                            <div>
-                                <div style={{
-                                    fontSize: '16px',
-                                    fontWeight: '600',
-                                    color: 'var(--text-primary)'
-                                }}>
-                                    Question Paper Viewer
-                                </div>
-                                <div style={{
-                                    fontSize: '12px',
-                                    color: 'var(--text-secondary)'
-                                }}>
-                                    {examData[activeExam].title}
-                                </div>
-                            </div>
-                        </div>
-                        <button
-                            onClick={closePdfModal}
-                            style={{
-                                padding: '8px 16px',
-                                background: 'var(--error)',
-                                color: 'white',
-                                border: 'none',
-                                borderRadius: 'var(--radius-md)',
-                                cursor: 'pointer',
-                                fontSize: '14px',
-                                fontWeight: '500',
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '8px'
-                            }}
-                        >
-                            Close
-                        </button>
-                    </div>
-                    <div style={{
-                        flex: 1,
-                        background: '#f5f5f5'
-                    }}>
-                        <iframe
-                            src={pdfUrl}
-                            style={{
-                                width: '100%',
-                                height: '100%',
-                                border: 'none'
-                            }}
-                            title="PDF Viewer"
-                        />
-                    </div>
-                </div>
-            )}
+
         </div>
     )
 }

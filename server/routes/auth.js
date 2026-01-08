@@ -238,4 +238,90 @@ router.post('/notifications/mark-all', async (req, res) => {
     } catch (e) { console.error(e); res.status(500).json({ message: 'Server error' }) }
 })
 
+// Forgot password - send reset code
+router.post('/forgot-password', async (req, res) => {
+    try {
+        const { email } = req.body
+        if (!email) return res.status(400).json({ message: 'Email required' })
+
+        const user = await User.findOne({ email })
+        if (!user) return res.status(400).json({ message: 'User not found' })
+
+        // Generate a 6-digit reset code
+        const resetCode = Math.floor(100000 + Math.random() * 900000).toString()
+
+        // Store reset code with expiration (15 minutes)
+        user.resetCode = resetCode
+        user.resetCodeExpires = new Date(Date.now() + 15 * 60 * 1000) // 15 minutes
+        await user.save()
+
+        // In a real application, you would send an email here
+        // For demo purposes, we'll just return success
+        console.log(`Password reset code for ${email}: ${resetCode}`)
+
+        res.json({ message: 'Reset code sent to your email' })
+    } catch (err) {
+        console.error(err)
+        res.status(500).json({ message: 'Server error' })
+    }
+})
+
+// Verify reset code
+router.post('/verify-reset-code', async (req, res) => {
+    try {
+        const { email, code } = req.body
+        if (!email || !code) return res.status(400).json({ message: 'Email and code required' })
+
+        const user = await User.findOne({ email })
+        if (!user) return res.status(400).json({ message: 'User not found' })
+
+        if (!user.resetCode || user.resetCode !== code) {
+            return res.status(400).json({ message: 'Invalid reset code' })
+        }
+
+        if (!user.resetCodeExpires || user.resetCodeExpires < new Date()) {
+            return res.status(400).json({ message: 'Reset code expired' })
+        }
+
+        res.json({ message: 'Code verified successfully' })
+    } catch (err) {
+        console.error(err)
+        res.status(500).json({ message: 'Server error' })
+    }
+})
+
+// Reset password
+router.post('/reset-password', async (req, res) => {
+    try {
+        const { email, code, newPassword } = req.body
+        if (!email || !code || !newPassword) return res.status(400).json({ message: 'All fields required' })
+
+        const user = await User.findOne({ email })
+        if (!user) return res.status(400).json({ message: 'User not found' })
+
+        if (!user.resetCode || user.resetCode !== code) {
+            return res.status(400).json({ message: 'Invalid reset code' })
+        }
+
+        if (!user.resetCodeExpires || user.resetCodeExpires < new Date()) {
+            return res.status(400).json({ message: 'Reset code expired' })
+        }
+
+        // Hash new password
+        const salt = await bcrypt.genSalt(10)
+        user.passwordHash = await bcrypt.hash(newPassword, salt)
+
+        // Clear reset code
+        user.resetCode = undefined
+        user.resetCodeExpires = undefined
+
+        await user.save()
+
+        res.json({ message: 'Password reset successfully' })
+    } catch (err) {
+        console.error(err)
+        res.status(500).json({ message: 'Server error' })
+    }
+})
+
 module.exports = router

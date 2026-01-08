@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="deepdive.css">
 </head>
-<body>
+<body class="deepdive-page">
   <header class="site-header">
     <nav class="navbar">
       <ul class="nav-links">
@@ -24,9 +24,12 @@
   </header>
 
   <main class="deepdive-main container">
-    <section class="intro">
-      <h1>Exam Deep Dive</h1>
-      <p class="lead">Select an exam to see the official syllabus, career outcomes, and upcoming dates — all with interactive, animated insights.</p>
+    <section class="deepdive-hero">
+      <div class="hero-content">
+        <div class="hero-icon">🔍</div>
+        <h1 class="page-title">Exam Deep Dive</h1>
+        <p class="page-subtitle">Select an exam to see the official syllabus, career outcomes, and upcoming dates — all with interactive, animated insights.</p>
+      </div>
     </section>
 
     <section class="deepdive-grid">
@@ -38,6 +41,11 @@
       </aside>
 
       <section id="examDetails" class="exam-details" aria-live="polite">
+        <div class="placeholder" id="detailsPlaceholder">
+          <div class="placeholder-icon">📚</div>
+          <h2>Pick an exam</h2>
+          <p>Choose an exam from the left to see syllabus, career paths and upcoming dates.</p>
+        </div>
         
         <article class="details-card hidden" id="detailsCard">
           <header class="details-header">

@@ -56,6 +56,7 @@ const examsData = [
 const examsContainer = document.getElementById('exams');
 const examSearch = document.getElementById('examSearch');
 const detailsCard = document.getElementById('detailsCard');
+const detailsPlaceholder = document.getElementById('detailsPlaceholder');
 const examTitle = document.getElementById('examTitle');
 const examType = document.getElementById('examType');
 const examDifficulty = document.getElementById('examDifficulty');
@@ -171,6 +172,7 @@ async function selectExam(id, cardEl) {
 
   // show details card and loading skeleton
   detailsCard.classList.remove('hidden'); detailsCard.classList.add('show');
+  if (detailsPlaceholder) detailsPlaceholder.style.display = 'none';
   syllabusList.innerHTML = '<li>Loading syllabus…</li>';
   outcomesList.innerHTML = '<li>Loading outcomes…</li>';
   datesList.innerHTML = '<div class="date-chip">Loading dates…</div>';

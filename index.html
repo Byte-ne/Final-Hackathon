@@ -3,43 +3,160 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Homepage</title>
+  <title>Vidya Setu - Your Path to Competitive Exam Success</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont/tabler-icons.min.css" rel="stylesheet">
 </head>
 <body>
+  <!-- Straight Road with Car -->
+  <div class="road-container" id="roadContainer">
+    <svg class="road-path" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 5000">
+      <!-- Border/shadow -->
+      <line x1="50" y1="0" x2="50" y2="5000" stroke="#1967D2" stroke-width="18" opacity="0.3"/>
+      <!-- Main road -->
+      <line id="roadLine" x1="50" y1="0" x2="50" y2="5000" stroke="#4285F4" stroke-width="12"/>
+      <!-- Road dashes -->
+      <line x1="50" y1="0" x2="50" y2="5000" stroke="#ffffff" stroke-width="2" stroke-dasharray="40 60" opacity="0.5"/>
+    </svg>
+    <div class="car" id="car">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FF6B6B">
+        <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Navigation -->
   <header class="site-header">
     <nav class="navbar">
       <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="page3.html">Past Paper Vault</a></li>
-        <li><a href="page4.html">Games</a></li>
+        <li><a href="index.html" class="nav-link active">Home</a></li>
+        <li><a href="page3.html" class="nav-link">Past Papers</a></li>
+        <li><a href="page4.html" class="nav-link">Games</a></li>
       </ul>
       <a class="logo-wrap" href="#">
-        <img src="images/logo.svg" alt="Logo" class="logo">
+        <img src="images/logo.svg" alt="Vidya Setu Logo" class="logo">
       </a>
     </nav>
   </header>
 
+  <!-- Hero Section -->
   <main class="hero">
-    <div class="hero-inner">
-      <div class="mascot">
-        <!-- Replace src with your mascot image -->
-        <img src="images/mascot.svg" alt="Mascot">
+    <div class="hero-inner fade-in">
+      <div class="mascot slide-in-left">
+        <img src="images/mascot.svg" alt="Vidya Setu Mascot">
       </div>
-      <div class="motto">
-        <h1>Learn. Explore. Grow.</h1>
-        <p class="tagline">Empowering students through engaging maps and local context.</p>
+        <div class="hero-content slide-in-right">
+        <h1 class="hero-title">Learn. Compete. Succeed.</h1>
+        <p class="hero-subtitle">Your ultimate companion for competitive exam preparation with 100+ past papers and engaging games.</p>
+        <div class="hero-cta">
+          <button class="btn btn-primary">Get Started</button>
+          <button class="btn btn-secondary">Learn More</button>
+        </div>
       </div>
     </div>
   </main>
 
+  <!-- Features Section -->
+  <section class="features">
+    <div class="container">
+      <h2 class="section-title scroll-reveal">Everything You Need to Succeed</h2>
+      <div class="features-grid">
+        <div class="feature-card scroll-reveal" style="--delay: 0s">
+          <div class="feature-icon">
+            <i class="ti ti-file-text"></i>
+          </div>
+          <h3>Past Year Papers</h3>
+          <p>Access 100+ past papers for all major competitive exams. Practice with authentic questions and excel in your preparation.</p>
+        </div>
+        <div class="feature-card scroll-reveal" style="--delay: 0.1s">
+          <div class="feature-icon green">
+            <i class="ti ti-camera"></i>
+          </div>
+          <h3>Success Stories</h3>
+          <p>Share your achievements and inspire others. Post your success pictures and stories with the community.</p>
+        </div>
+        <div class="feature-card scroll-reveal" style="--delay: 0.2s">
+          <div class="feature-icon">
+            <i class="ti ti-device-gamepad"></i>
+          </div>
+          <h3>Competitive Games</h3>
+          <p>Challenge your friends with educational games. Make learning fun while competing and improving together.</p>
+        </div>
+        <div class="feature-card scroll-reveal" style="--delay: 0.3s">
+          <div class="feature-icon green">
+            <i class="ti ti-bulb"></i>
+          </div>
+          <h3>Exam Deep Dive</h3>
+          <p>Get comprehensive insights about all competitive exams. Understand patterns, strategies, and requirements.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item scroll-reveal" style="--delay: 0s">
+          <div class="stat-number" data-count="10000">0</div>
+          <div class="stat-label">Active Students</div>
+        </div>
+        <div class="stat-item scroll-reveal" style="--delay: 0.1s">
+          <div class="stat-number" data-count="100">0</div>
+          <div class="stat-label">Past Papers</div>
+        </div>
+        <div class="stat-item scroll-reveal" style="--delay: 0.2s">
+          <div class="stat-number" data-count="25">0</div>
+          <div class="stat-label">Competitive Exams</div>
+        </div>
+        <div class="stat-item scroll-reveal" style="--delay: 0.3s">
+          <div class="stat-number" data-count="500">0</div>
+          <div class="stat-label">Success Stories</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section scroll-reveal">
+    <div class="container">
+      <div class="cta-content">
+        <h2>Ready to Ace Your Exams?</h2>
+        <p>Join thousands of students preparing smarter with 100+ past papers and competitive games.</p>
+        <button class="btn btn-cta">Start Preparing Now</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
   <footer class="site-footer">
-    <p>&copy; <span id="year"></span> Vidya Setu — All rights reserved.</p>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4>About Vidya Setu</h4>
+          <p>Your comprehensive platform for competitive exam preparation with past papers, games, and success stories.</p>
+        </div>
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="page3.html">Past Papers</a></li>
+            <li><a href="page4.html">Games</a></li>
+            <li><a href="#">Success Stories</a></li>
+            <li><a href="#">Exam Guide</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Contact</h4>
+          <p>support@vidyasetu.com</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; <span id="year"></span> Vidya Setu — All rights reserved.</p>
+      </div>
+    </div>
   </footer>
 
-  <script>
-    // Simple script to set the current year
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
